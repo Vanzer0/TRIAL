@@ -42,7 +42,6 @@
             margin: 10px 0;
             color: #ff69b4;
             animation: fadeInDown 1s ease-in-out, rainbowText 4s infinite;
-            text-shadow: 2px 2px 6px rgba(255,105,180,0.4);
         }
         section {
             padding: 25px 15px;
@@ -103,15 +102,11 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.2);
             z-index: 10;
         }
-        #audio-controls {
-            margin: 10px 0;
-        }
         @media (max-width: 768px) {
             section { padding: 20px 12px; margin: 10px; }
             .logo { max-width: 180px; }
             h1 { font-size: 2.2em; }
         }
-        /* Animations remain the same */
         @keyframes bounceIn { 0% { transform: scale(0.95) translateY(0); } 100% { transform: scale(1.05) translateY(-12px); } }
         @keyframes rainbowText { 0%,100% { color: #ff69b4; } 33% { color: #ffd700; } 66% { color: #add8e6; } }
     </style>
@@ -120,12 +115,12 @@
     <header>
         <img src="logo.png" alt="MYLESKY PASAWAY" class="logo">
         <h1>MYLESKY PASAWAY</h1>
-        <p class="animate__animated animate__fadeIn">The Naughtiest Meme Coin on Solana – Pasaway Vibes Only! <span style="font-size:1.4em;">🐻🎉</span></p>
+        <p>The Naughtiest Meme Coin on Solana – Pasaway Vibes Only! 🐻🎉</p>
     </header>
 
     <section id="utility">
-        <h2>Pasaway Meme Generator <span style="font-size:1.4em;">🤪😂</span></h2>
-        <p>Create epic memes with our cute templates – share on X/Telegram for community rewards!</p>
+        <h2>Pasaway Meme Generator 🤪😂</h2>
+        <p>Create epic memes – share on X/Telegram for community rewards!</p>
 
         <div class="form-group">
             <label for="template-select">Choose Template:</label>
@@ -146,28 +141,31 @@
                 <option value="15">Batman Slapping Robin</option>
             </select>
         </div>
+
         <div class="form-group">
             <label for="top-text">Top Text:</label>
             <input type="text" id="top-text" placeholder="e.g., WHEN YOU SEE $MYLESKY">
         </div>
+
         <div class="form-group">
             <label for="bottom-text">Bottom Text:</label>
             <input type="text" id="bottom-text" placeholder="e.g., BUT STILL PASAWAY">
         </div>
+
         <button onclick="generateMeme()">Generate Meme! 🌟</button>
 
         <canvas id="meme-canvas"></canvas>
 
-        <div id="meme-result" style="margin-top:15px;">
+        <div style="margin-top:15px;">
             <a id="download-link" style="display:none; font-size:1.3em; color:#ff69b4; text-decoration:none;">Download Meme 📥</a>
         </div>
 
-        <div id="audio-controls">
-            <button onclick="toggleAudio()">Play/Pause Music 🎵</button>
+        <div style="margin: 20px 0;">
+            <button onclick="toggleAudio()">Play / Pause Music 🎵</button>
         </div>
     </section>
 
-    <!-- Cute royalty-free music from Pixabay (CC0 / free to use) -->
+    <!-- Cute background music -->
     <audio id="bgMusic" loop>
         <source src="https://cdn.pixabay.com/audio/2023/08/07/audio_6d4e8d3d9d.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
@@ -192,8 +190,8 @@
         ];
 
         function generateMeme() {
-            const topText = document.getElementById('top-text').value.toUpperCase();
-            const bottomText = document.getElementById('bottom-text').value.toUpperCase();
+            const topText = (document.getElementById('top-text').value || '').toUpperCase().trim();
+            const bottomText = (document.getElementById('bottom-text').value || '').toUpperCase().trim();
             const idx = parseInt(document.getElementById('template-select').value);
             const template = memeTemplates[idx];
 
@@ -206,45 +204,53 @@
             img.onload = () => {
                 canvas.width = img.width;
                 canvas.height = img.height;
-                ctx.drawImage(img, 0, 0);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                // Large, visible text settings
-                const fontSize = Math.max(60, canvas.width / 12); // Scales with image size
+                // ────────────────────────────────────────────────
+                //   BIGGER + MORE VISIBLE TEXT SETTINGS
+                // ────────────────────────────────────────────────
+                const fontSize = Math.max(60, Math.floor(canvas.width / 9.5)); // larger than before
                 ctx.font = `bold ${fontSize}px Impact, 'Arial Black', sans-serif`;
                 ctx.fillStyle = 'white';
                 ctx.strokeStyle = 'black';
-                ctx.lineWidth = fontSize / 8; // Thick stroke
+                ctx.lineWidth = Math.max(10, fontSize / 7);       // thicker stroke
                 ctx.textAlign = 'center';
-                ctx.textBaseline = 'top';
+                ctx.textBaseline = 'middle'; // better vertical centering
                 ctx.shadowColor = 'black';
-                ctx.shadowBlur = 12;
-                ctx.shadowOffsetX = 4;
-                ctx.shadowOffsetY = 4;
+                ctx.shadowBlur = 14;                               // stronger shadow
+                ctx.shadowOffsetX = 5;
+                ctx.shadowOffsetY = 5;
 
-                // Top text
-                wrapText(ctx, topText, canvas.width / 2, fontSize * 0.3, canvas.width * 0.92, fontSize * 1.1);
+                // Top text – placed higher to avoid face overlap
+                const topY = fontSize * 1.4;
+                wrapText(ctx, topText, canvas.width / 2, topY, canvas.width * 0.90, fontSize * 1.15);
 
-                // Bottom text
-                ctx.textBaseline = 'bottom';
-                wrapText(ctx, bottomText, canvas.width / 2, canvas.height - fontSize * 0.3, canvas.width * 0.92, fontSize * 1.1);
+                // Bottom text – placed lower
+                const bottomY = canvas.height - fontSize * 0.8;
+                ctx.textBaseline = 'middle';
+                wrapText(ctx, bottomText, canvas.width / 2, bottomY, canvas.width * 0.90, fontSize * 1.15);
 
                 // Small watermark
                 ctx.shadowBlur = 0;
-                ctx.font = `italic ${fontSize * 0.4}px Poppins, sans-serif`;
-                ctx.fillStyle = 'rgba(255,255,255,0.75)';
-                ctx.fillText('#MyleskyPasaway', canvas.width / 2, canvas.height - 15);
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 0;
+                ctx.font = `italic ${Math.floor(fontSize * 0.35)}px Poppins, sans-serif`;
+                ctx.fillStyle = 'rgba(255,255,255,0.8)';
+                ctx.fillText('#MyleskyPasaway', canvas.width / 2, canvas.height - 18);
 
-                // Download
+                // Enable download
                 const link = document.getElementById('download-link');
                 link.href = canvas.toDataURL('image/png');
                 link.download = 'mylesky-pasaway-meme.png';
                 link.style.display = 'inline-block';
 
+                // Optional fun effect
                 confetti();
             };
         }
 
         function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+            if (!text) return;
             const words = text.split(' ');
             let line = '';
             let currentY = y;
@@ -253,36 +259,32 @@
                 const testLine = line + words[i] + ' ';
                 const metrics = ctx.measureText(testLine);
                 if (metrics.width > maxWidth && i > 0) {
-                    ctx.fillText(line, x, currentY);
-                    ctx.strokeText(line, x, currentY);
+                    ctx.fillText(line.trim(), x, currentY);
+                    ctx.strokeText(line.trim(), x, currentY);
                     line = words[i] + ' ';
                     currentY += lineHeight;
                 } else {
                     line = testLine;
                 }
             }
-            ctx.fillText(line, x, currentY);
-            ctx.strokeText(line, x, currentY);
+            // Last line
+            ctx.fillText(line.trim(), x, currentY);
+            ctx.strokeText(line.trim(), x, currentY);
         }
 
+        // Simple confetti (you can keep or remove)
         function confetti() {
-            // (your existing confetti code remains – it works fine)
-            // ... paste your confetti function here if you want to keep it ...
+            // your existing confetti code or leave empty
         }
 
         function toggleAudio() {
             const audio = document.getElementById('bgMusic');
             if (audio.paused) {
-                audio.play().catch(() => console.log("Autoplay blocked – user interaction needed"));
+                audio.play().catch(e => console.log("Autoplay needs interaction"));
             } else {
                 audio.pause();
             }
         }
-
-        // Optional: Try autoplay on load (many browsers require interaction first)
-        window.addEventListener('load', () => {
-            document.getElementById('bgMusic').play().catch(() => {});
-        });
     </script>
 </body>
 </html>
