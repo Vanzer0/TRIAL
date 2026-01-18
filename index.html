@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MYLESKY PASAWAY: The mischievous Solana meme coin with a unique Prank & Meme Generator utility!">
+    <meta name="description" content="MYLESKY PASAWAY: The mischievous Solana meme coin with a unique Meme Generator utility!">
     <meta property="og:title" content="MYLESKY PASAWAY - Naughtiest Meme Coin on Solana">
-    <meta property="og:description" content="Join the fun with harmless pranks, custom memes, and community rewards. Pasaway vibes only!">
+    <meta property="og:description" content="Join the fun with custom memes and community rewards. Pasaway vibes only!">
     <meta property="og:image" content="https://your-image-url.com/pasaway-logo.png"> <!-- Update with hosted URL if needed -->
     <meta property="og:url" content="https://your-vercel-domain.vercel.app">
     <title>MYLESKY PASAWAY - The Mischievous Meme Coin</title>
@@ -85,7 +85,7 @@
             transform: scale(1.1) rotate(5deg); /* More exaggerated wiggle for fun */
             box-shadow: 0 4px 10px rgba(255,105,180,0.5);
         }
-        #result, #meme-result {
+        #meme-result {
             margin-top: 20px;
             font-size: 1.4em; /* Slightly smaller for mobile */
             color: #ff69b4;
@@ -147,7 +147,7 @@
         /* Professional touches */
         a { color: #ff69b4; text-decoration: none; font-weight: bold; }
         a:hover { text-decoration: underline; transform: scale(1.05); }
-        input { 
+        input, select { 
             padding: 12px; 
             width: 100%; /* Full width on mobile */
             max-width: 400px; 
@@ -159,7 +159,9 @@
             font-size: 1em; /* Readable input text */
             box-sizing: border-box; /* Include padding in width */
         }
-        input:focus { outline: none; box-shadow: 0 0 10px rgba(255,105,180,0.5); }
+        input:focus, select:focus { outline: none; box-shadow: 0 0 10px rgba(255,105,180,0.5); }
+        label { display: block; font-weight: 600; margin-bottom: 5px; color: #5c3c2e; }
+        .form-group { margin: 15px 0; }
         /* Enhanced mobile responsiveness */
         @media (max-width: 768px) {
             body { font-size: 14px; } /* Smaller base font for mobile */
@@ -168,7 +170,6 @@
             section { padding: 20px 10px; margin: 10px; }
             .logo { max-width: 180px; }
             button { font-size: 1em; padding: 12px 20px; }
-            #result { font-size: 1.2em; }
             p { line-height: 1.4; } /* Better readability */
         }
         @media (max-width: 480px) {
@@ -180,7 +181,7 @@
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="MYLESKY PASAWAY Brand Image - Cute Bears in Bed" class="logo">
+        <img src="logo.png" alt="MYLESKY PASAWAY" class="logo">
         <h1>MYLESKY PASAWAY</h1>
         <p class="animate__animated animate__fadeIn">The Naughtiest Meme Coin on Solana – Where Mischief Meets Crypto! <span class="emoji">🎉🐻</span></p>
     </header>
@@ -193,20 +194,32 @@
     </section>
 
     <section id="utility">
-        <h2>Unique Utility: Pasaway Prank & Meme Generator <span class="emoji">🤪</span></h2>
-        <p>What makes us stand out? Our built-in AI-like Prank & Meme Generator! Create hilarious pranks or custom memes using well-known meme templates that fit your text. We auto-select a famous template based on your input for the best match! It's fun, shareable, and ties into our meme culture – perfect for intriguing friends and attracting new holders. Share your creations on X or Telegram to earn community rewards! <span class="emoji">😂</span></p>
-        <p class="fun-fact">Pro Tip: Try "pasaway at a party" for epic laughs, or meme-ify your prank!</p>
-        
-        <!-- Prank Generator -->
-        <h3>Generate a Prank <span class="emoji">🎭</span></h3>
-        <input type="text" id="scenario" placeholder="Enter a scenario (e.g., 'bored at work')">
-        <button onclick="generatePrank()">Generate Prank! 🎈</button>
-        <div id="result"></div>
+        <h2>Unique Utility: Pasaway Meme Generator <span class="emoji">🤪</span></h2>
+        <p>What makes us stand out? Our professional Meme Generator! Choose from well-known meme templates, add your custom text, and create shareable masterpieces. It's fun, easy, and ties into our meme culture – perfect for intriguing friends and attracting new holders. Share your creations on X or Telegram to earn community rewards! <span class="emoji">😂</span></p>
+        <p class="fun-fact">Pro Tip: Select a template that matches your vibe for epic memes!</p>
         
         <!-- Meme Generator -->
-        <h3>Generate a Meme <span class="emoji">🖼️</span></h3>
-        <input type="text" id="top-text" placeholder="Top Text (e.g., 'When you're pasaway')">
-        <input type="text" id="bottom-text" placeholder="Bottom Text (e.g., 'But still cute')">
+        <div class="form-group">
+            <label for="template-select">Choose Meme Template:</label>
+            <select id="template-select">
+                <option value="0">Distracted Boyfriend</option>
+                <option value="1">Success Kid</option>
+                <option value="2">This Is Fine</option>
+                <option value="3">Expanding Brain</option>
+                <option value="4">Drake Hotline Bling</option>
+                <option value="5">Change My Mind</option>
+                <option value="6">Doge</option>
+                <option value="7">One Does Not Simply</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="top-text">Top Text:</label>
+            <input type="text" id="top-text" placeholder="Top Text (e.g., 'When you're pasaway')">
+        </div>
+        <div class="form-group">
+            <label for="bottom-text">Bottom Text:</label>
+            <input type="text" id="bottom-text" placeholder="Bottom Text (e.g., 'But still cute')">
+        </div>
         <button onclick="generateMeme()">Generate Meme! 🌟</button>
         <canvas id="meme-canvas" width="400" height="400"></canvas>
         <div id="meme-result"><a id="download-link" style="display:none;">Download Your Meme! 📥</a></div>
@@ -225,103 +238,51 @@
     </footer>
 
     <script>
-        const pranks = [
-            "Hide your boss's coffee mug in the fridge and blame the office ghost! 👻",
-            "Switch everyone's keyboard shortcuts and watch the chaos unfold. ⌨️😂",
-            "Send anonymous funny memes to your friends pretending to be a secret admirer. ❤️📱",
-            "Put googly eyes on all the office supplies for instant smiles. 👀😄",
-            "Create a fake 'Out of Order' sign for the elevator and take the stairs. 🛗🏃",
-            "Whisper random facts to strangers in public – bonus if they're about cats. 🐱🤫",
-            "Replace family photos with celebrity lookalikes and act normal. 📸😎",
-            "Start a dance-off in a boring meeting via Zoom filters. 💃🕺",
-            "Hide notes with puns in random places around the house. 📝🏠",
-            "Convince your friends that today is 'Opposite Day' and respond accordingly. 🔄🤯"
-        ];
-
-        function generatePrank() {
-            const scenario = document.getElementById('scenario').value.trim();
-            let prankIndex = Math.floor(Math.random() * pranks.length);
-            
-            // Enhanced "AI-like" customization with fun
-            if (scenario.toLowerCase().includes('work') || scenario.toLowerCase().includes('office')) {
-                prankIndex = 0;
-            } else if (scenario.toLowerCase().includes('friends') || scenario.toLowerCase().includes('party')) {
-                prankIndex = 2;
-            } else if (scenario.toLowerCase().includes('home') || scenario.toLowerCase().includes('family')) {
-                prankIndex = 6;
-            }
-            
-            const result = document.getElementById('result');
-            result.innerHTML = `Your Pasaway Prank: ${pranks[prankIndex]}<br><small>Share this on socials with #MyleskyPasaway for a chance to win tokens! 🎁</small>`;
-            result.classList.add('animate__animated', 'animate__zoomIn');
-            
-            // Add confetti for extra fun (simple JS confetti)
-            confetti();
-        }
-
-        // Well-known meme templates with URLs and keywords for fitting
+        // Well-known meme templates with URLs
         const memeTemplates = [
             {
                 name: 'Distracted Boyfriend',
-                url: 'https://i.imgflip.com/1ur9b0.jpg',
-                keywords: ['distracted', 'boyfriend', 'girlfriend', 'cheat', 'temptation', 'choice']
+                url: 'https://i.imgflip.com/1ur9b0.jpg'
             },
             {
                 name: 'Success Kid',
-                url: 'https://i.imgflip.com/gk5a.jpg',
-                keywords: ['success', 'win', 'achievement', 'victory', 'happy', 'kid']
+                url: 'https://i.imgflip.com/gk5a.jpg'
             },
             {
                 name: 'This Is Fine',
-                url: 'https://i.imgflip.com/grju.jpg',
-                keywords: ['fine', 'chaos', 'disaster', 'ignore', 'denial', 'dog']
+                url: 'https://i.imgflip.com/grju.jpg'
             },
             {
                 name: 'Expanding Brain',
-                url: 'https://i.imgflip.com/1jwhww.jpg',
-                keywords: ['brain', 'smart', 'idea', 'evolution', 'thinking', 'levels']
+                url: 'https://i.imgflip.com/1jwhww.jpg'
             },
             {
                 name: 'Drake Hotline Bling',
-                url: 'https://i.imgflip.com/30b1gx.jpg',
-                keywords: ['drake', 'approve', 'disapprove', 'prefer', 'better', 'worse']
+                url: 'https://i.imgflip.com/30b1gx.jpg'
             },
             {
                 name: 'Change My Mind',
-                url: 'https://i.imgflip.com/24y43o.jpg',
-                keywords: ['change', 'mind', 'opinion', 'debate', 'sign', 'guy']
+                url: 'https://i.imgflip.com/24y43o.jpg'
             },
             {
                 name: 'Doge',
-                url: 'https://i.imgflip.com/4t0m5.jpg',
-                keywords: ['doge', 'dog', 'such', 'wow', 'funny', 'shiba']
+                url: 'https://i.imgflip.com/4t0m5.jpg'
             },
             {
                 name: 'One Does Not Simply',
-                url: 'https://i.imgflip.com/1bij.jpg',
-                keywords: ['simply', 'not', 'boromir', 'lord', 'rings', 'hard']
+                url: 'https://i.imgflip.com/1bij.jpg'
             },
             // Add more as needed; these are public imgflip templates with CORS enabled for canvas
         ];
 
-        // Meme Generator Function with Fitting Well-Known Template
+        // Meme Generator Function with User-Selected Template
         function generateMeme() {
             const topText = document.getElementById('top-text').value.toUpperCase();
             const bottomText = document.getElementById('bottom-text').value.toUpperCase();
+            const templateIndex = document.getElementById('template-select').value;
+            const selectedTemplate = memeTemplates[templateIndex];
             const canvas = document.getElementById('meme-canvas');
             const ctx = canvas.getContext('2d');
-
-            // Analyze text to find best-fitting template
-            const combinedText = (topText + ' ' + bottomText).toLowerCase();
-            let selectedTemplate = memeTemplates[Math.floor(Math.random() * memeTemplates.length)]; // Default random
-
-            // Fit logic: Match keywords
-            for (const template of memeTemplates) {
-                if (template.keywords.some(keyword => combinedText.includes(keyword))) {
-                    selectedTemplate = template;
-                    break;
-                }
-            }
 
             // Load the selected well-known meme image
             const img = new Image();
@@ -329,7 +290,7 @@
             img.src = selectedTemplate.url;
 
             img.onload = function() {
-                // Adjust canvas to image dimensions for fit
+                // Adjust canvas to image dimensions for perfect fit
                 canvas.width = img.width;
                 canvas.height = img.height;
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -365,7 +326,7 @@
                 downloadLink.style.display = 'block';
                 downloadLink.innerText = 'Download Your Meme! 📥';
 
-                // Confetti for fun
+                // Add confetti for fun
                 confetti();
             };
         }
