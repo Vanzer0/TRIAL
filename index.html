@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MYLESKY PASAWAY: The mischievous Solana meme coin with a unique Prank Generator utility!">
+    <meta property="og:title" content="MYLESKY PASAWAY - Naughtiest Meme Coin on Solana">
+    <meta property="og:description" content="Join the fun with harmless pranks and community rewards. Pasaway vibes only!">
+    <meta property="og:image" content="https://your-image-url.com/pasaway-logo.png"> <!-- Update with hosted URL if needed -->
+    <meta property="og:url" content="https://your-vercel-domain.vercel.app">
+    <title>MYLESKY PASAWAY - The Mischievous Meme Coin</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Add favicon.ico to repo if desired -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #d9f2ff; /* Light blue from image background */
+            color: #5c3c2e; /* Soft brown for text, matching bears */
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            overflow-x: hidden;
+            font-size: 16px; /* Base font size for readability */
+        }
+        header {
+            background-color: #ffd700; /* Yellow pillow-inspired for warm, fun header */
+            color: #5c3c2e;
+            padding: 40px 15px; /* Reduced padding for mobile */
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .logo {
+            max-width: 250px; /* Smaller default for mobile */
+            margin: 15px auto;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: bounceIn 1s ease-in-out infinite alternate; /* Lively bounce */
+        }
+        h1 {
+            font-size: 2.5em; /* Scaled down base for mobile */
+            margin: 10px 0;
+            color: #ff69b4; /* Pink accents from phone/cheeks for mischief */
+            animation: fadeInDown 1s ease-in-out, pulse 2s infinite;
+        }
+        section {
+            padding: 30px 15px; /* Mobile-friendly padding */
+            max-width: 900px;
+            margin: 15px auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background-color: #ffffff; /* White bear-inspired clean sections */
+        }
+        #about {
+            background-color: #fffacd; /* Soft yellow for warmth */
+            animation: fadeInLeft 1s ease-in-out;
+        }
+        #utility {
+            background-color: #add8e6; /* Light blue blanket for cozy feel */
+            animation: fadeInRight 1s ease-in-out;
+        }
+        #buy {
+            background-color: #ffe4b5; /* Peachy yellow mix for inviting buy section */
+            animation: fadeInUp 1s ease-in-out;
+        }
+        button {
+            background-color: #ff69b4; /* Pink button for lively pop */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 5px rgba(255,105,180,0.3);
+            width: 100%; /* Full width on mobile for easy tapping */
+            max-width: 300px; /* Cap width for larger screens */
+        }
+        button:hover {
+            background-color: #ff1493;
+            transform: scale(1.1) rotate(2deg); /* Lively hover wiggle */
+            box-shadow: 0 4px 10px rgba(255,105,180,0.5);
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.4em; /* Slightly smaller for mobile */
+            color: #ff69b4;
+            animation: zoomIn 0.5s ease-in-out, shake 0.5s infinite alternate;
+            word-wrap: break-word; /* Prevent overflow */
+        }
+        footer {
+            background-color: #5c3c2e; /* Brown bear for grounded footer */
+            color: #ffd700;
+            padding: 20px 15px; /* Mobile padding */
+            margin-top: 30px;
+            font-size: 0.9em;
+            border-top: 5px solid #ff69b4;
+        }
+        /* Additional lively animations */
+        @keyframes bounceIn {
+            0% { transform: scale(0.9) translateY(0); }
+            100% { transform: scale(1) translateY(-10px); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-2px) rotate(-2deg); }
+            50% { transform: translateX(2px) rotate(2deg); }
+            75% { transform: translateX(-2px) rotate(-2deg); }
+            100% { transform: translateX(0); }
+        }
+        /* Professional touches */
+        a { color: #ff69b4; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; transform: scale(1.05); }
+        input { 
+            padding: 12px; 
+            width: 100%; /* Full width on mobile */
+            max-width: 400px; 
+            border: 2px solid #ff69b4; 
+            border-radius: 10px; 
+            margin: 20px 0; 
+            background-color: #fff; 
+            color: #5c3c2e; 
+            font-size: 1em; /* Readable input text */
+            box-sizing: border-box; /* Include padding in width */
+        }
+        input:focus { outline: none; box-shadow: 0 0 10px rgba(255,105,180,0.5); }
+        /* Enhanced mobile responsiveness */
+        @media (max-width: 768px) {
+            body { font-size: 14px; } /* Smaller base font for mobile */
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.5em; }
+            section { padding: 20px 10px; margin: 10px; }
+            .logo { max-width: 180px; }
+            button { font-size: 1em; padding: 12px 20px; }
+            #result { font-size: 1.2em; }
+            p { line-height: 1.4; } /* Better readability */
+        }
+        @media (max-width: 480px) {
+            header { padding: 30px 10px; }
+            .logo { max-width: 150px; }
+            h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="MYLESKY PASAWAY" class="logo">
+        <h1>MYLESKY PASAWAY</h1>
+        <p class="animate__animated animate__fadeIn">The Naughtiest Meme Coin on Solana – Where Mischief Meets Crypto!</p>
+    </header>
+
+    <section id="about">
+        <h2>About MYLESKY PASAWAY</h2>
+        <p>"Pasaway" means mischievous in Filipino – and that's exactly what this coin is all about! Inspired by fun, chaos, and community-driven pranks, MYLESKY PASAWAY is a Solana-based meme coin designed for those who love a bit of harmless trouble. With low fees, fast transactions, and a vibrant community, we're here to shake up the crypto world.</p>
+        <p>Tokenomics: 1B total supply, 50% liquidity locked, 20% for marketing, 30% community airdrops. No rugs – fully transparent!</p>
+    </section>
+
+    <section id="utility">
+        <h2>Unique Utility: The Pasaway Prank Generator</h2>
+        <p>What makes us stand out? Our built-in AI-like Prank Generator! Enter your mood or a scenario, and get a custom, hilarious (and harmless) prank idea. It's fun, shareable, and ties into our meme culture – perfect for intriguing friends and attracting new holders. Share your pranks on X or Telegram to earn community rewards!</p>
+        <input type="text" id="scenario" placeholder="Enter a scenario (e.g., 'bored at work')">
+        <button onclick="generatePrank()">Generate Prank!</button>
+        <div id="result"></div>
+    </section>
+
+    <section id="buy">
+        <h2>How to Buy</h2>
+        <p>1. Get a Solana wallet like Phantom.</p>
+        <p>2. Buy SOL on an exchange and transfer to your wallet.</p>
+        <p>3. Swap for MYLESKY PASAWAY on Raydium or Jupiter DEX using our contract address: [Insert CA here].</p>
+        <p>Join our community: TG: TBA | X: TBA</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 MYLESKY PASAWAY. All rights reserved. Not financial advice – DYOR!</p>
+    </footer>
+
+    <script>
+        const pranks = [
+            "Hide your boss's coffee mug in the fridge and blame the office ghost!",
+            "Switch everyone's keyboard shortcuts and watch the chaos unfold.",
+            "Send anonymous funny memes to your friends pretending to be a secret admirer.",
+            "Put googly eyes on all the office supplies for instant smiles.",
+            "Create a fake 'Out of Order' sign for the elevator and take the stairs.",
+            "Whisper random facts to strangers in public – bonus if they're about cats.",
+            "Replace family photos with celebrity lookalikes and act normal.",
+            "Start a dance-off in a boring meeting via Zoom filters.",
+            "Hide notes with puns in random places around the house.",
+            "Convince your friends that today is 'Opposite Day' and respond accordingly."
+        ];
+
+        function generatePrank() {
+            const scenario = document.getElementById('scenario').value.trim();
+            let prankIndex = Math.floor(Math.random() * pranks.length);
+            
+            // Enhanced "AI-like" customization
+            if (scenario.toLowerCase().includes('work') || scenario.toLowerCase().includes('office')) {
+                prankIndex = 0;
+            } else if (scenario.toLowerCase().includes('friends') || scenario.toLowerCase().includes('party')) {
+                prankIndex = 2;
+            } else if (scenario.toLowerCase().includes('home') || scenario.toLowerCase().includes('family')) {
+                prankIndex = 6;
+            }
+            
+            const result = document.getElementById('result');
+            result.innerHTML = `Your Pasaway Prank: ${pranks[prankIndex]}<br><small>Share this on socials with #MyleskyPasaway for a chance to win tokens!</small>`;
+            result.classList.add('animate__animated', 'animate__zoomIn');
+        }
+    </script>
+</body>
+</html>
