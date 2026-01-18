@@ -177,6 +177,17 @@
             .logo { max-width: 150px; }
             h1 { font-size: 1.8em; }
         }
+        /* Audio controls styling for professionalism */
+        audio {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            opacity: 0.8;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
@@ -210,6 +221,14 @@
                 <option value="5">Change My Mind</option>
                 <option value="6">Doge</option>
                 <option value="7">One Does Not Simply</option>
+                <option value="8">Grumpy Cat</option>
+                <option value="9">Distracted Boyfriend (Variant)</option>
+                <option value="10">Mocking SpongeBob</option>
+                <option value="11">Woman Yelling at Cat</option>
+                <option value="12">Surprised Pikachu</option>
+                <option value="13">Evil Kermit</option>
+                <option value="14">Two Buttons</option>
+                <option value="15">Batman Slapping Robin</option>
             </select>
         </div>
         <div class="form-group">
@@ -236,6 +255,12 @@
     <footer>
         <p>&copy; 2026 MYLESKY PASAWAY. All rights reserved. Not financial advice – DYOR! <span class="emoji">🕵️‍♂️</span></p>
     </footer>
+
+    <!-- Cute background music (autoplay loop; upload 'background-music.mp3' to repo or replace src with a URL) -->
+    <audio autoplay loop>
+        <source src="background-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <script>
         // Well-known meme templates with URLs
@@ -272,6 +297,38 @@
                 name: 'One Does Not Simply',
                 url: 'https://i.imgflip.com/1bij.jpg'
             },
+            {
+                name: 'Grumpy Cat',
+                url: 'https://i.imgflip.com/8p0a.jpg'
+            },
+            {
+                name: 'Distracted Boyfriend (Variant)',
+                url: 'https://i.imgflip.com/1ur9b0.jpg' // Duplicate for variant, or replace with actual variant URL
+            },
+            {
+                name: 'Mocking SpongeBob',
+                url: 'https://i.imgflip.com/1otk96.jpg'
+            },
+            {
+                name: 'Woman Yelling at Cat',
+                url: 'https://i.imgflip.com/3nw4y7.jpg'
+            },
+            {
+                name: 'Surprised Pikachu',
+                url: 'https://i.imgflip.com/2kbn1e.jpg'
+            },
+            {
+                name: 'Evil Kermit',
+                url: 'https://i.imgflip.com/1e7ygt.jpg'
+            },
+            {
+                name: 'Two Buttons',
+                url: 'https://i.imgflip.com/1g8my4.jpg'
+            },
+            {
+                name: 'Batman Slapping Robin',
+                url: 'https://i.imgflip.com/9ehk.jpg'
+            },
             // Add more as needed; these are public imgflip templates with CORS enabled for canvas
         ];
 
@@ -295,22 +352,29 @@
                 canvas.height = img.height;
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                // Professional text style: Impact font with fallback, better wrapping
-                ctx.font = 'bold 40px Impact, sans-serif'; // Larger for visibility
+                // Professional text style: Impact font with fallback, better wrapping, enhanced visibility
+                ctx.font = 'bold 48px Impact, sans-serif'; // Larger font for clarity
                 ctx.fillStyle = 'white';
                 ctx.strokeStyle = 'black';
-                ctx.lineWidth = 6; // Thicker stroke for pro look
+                ctx.lineWidth = 8; // Thicker stroke for better visibility
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'top';
+                ctx.shadowColor = 'black'; // Add shadow for extra clarity on busy backgrounds
+                ctx.shadowBlur = 10;
+                ctx.shadowOffsetX = 2;
+                ctx.shadowOffsetY = 2;
 
                 // Wrap and draw top text (adjusted position)
-                wrapText(ctx, topText, canvas.width / 2, 10, canvas.width - 40, 45);
+                wrapText(ctx, topText, canvas.width / 2, 20, canvas.width - 40, 50);
 
                 // Bottom text (aligned to bottom)
                 ctx.textBaseline = 'bottom';
-                wrapText(ctx, bottomText, canvas.width / 2, canvas.height - 10, canvas.width - 40, 45);
+                wrapText(ctx, bottomText, canvas.width / 2, canvas.height - 20, canvas.width - 40, 50);
 
                 // Watermark for professionalism
+                ctx.shadowBlur = 0; // Reset shadow for watermark
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 0;
                 ctx.font = 'italic 20px Poppins';
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
                 ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
