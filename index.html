@@ -206,7 +206,7 @@
                 canvas.height = img.height;
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                // Professional meme text styling: white + thick white outline + strong shadow
+                // Professional meme text styling: black + thick white outline + strong shadow
                 const fontSize = Math.max(60, Math.floor(canvas.width / 8.5)); // large & scalable
                 ctx.font = `bold ${fontSize}px Impact, 'Arial Black', sans-serif`;
                 ctx.fillStyle = 'white';           // white text
@@ -214,7 +214,7 @@
                 ctx.lineWidth = Math.max(10, fontSize / 6.5); // thick stroke for visibility
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.shadowColor = 'white';
+                ctx.shadowColor = 'black';
                 ctx.shadowBlur = 12;               // strong blur for extra contrast
                 ctx.shadowOffsetX = 4;
                 ctx.shadowOffsetY = 4;
