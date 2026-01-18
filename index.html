@@ -1,396 +1,380 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>MYLESKY PASAWAY - Meme Generator</title>
-    <meta name="description" content="Create custom memes with MYLESKY PASAWAY – drag multiple texts, choose fonts & colors!" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Anton&family=Oswald:wght@500;700&family=Comic+Neue:wght@700&family=Roboto:wght@700&family=Montserrat:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
-    <style>
-        :root {
-            --primary: #ff69b4;
-            --primary-dark: #ff1493;
-            --bg-start: #d9f2ff;
-            --bg-end: #ffe4b5;
-            --text: #5c3c2e;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MYLESKY PASAWAY • Meme Generator</title>
+  <meta name="description" content="Create custom memes — multiple text layers, change font & color freely" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Anton&family=Oswald:wght@500;700&family=Comic+Neue:wght@700&family=Roboto:wght@700&family=Montserrat:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+  <style>
+    :root {
+      --primary: #ff69b4;
+      --primary-dark: #ff1493;
+      --bg-start: #d9f2ff;
+      --bg-end: #ffe4b5;
+      --text: #5c3c2e;
+    }
 
-        * { box-sizing: border-box; margin:0; padding:0; }
+    * { box-sizing: border-box; margin:0; padding:0; }
 
-        body {
-            font-family: 'Poppins', system-ui, sans-serif;
-            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
-            color: var(--text);
-            min-height: 100vh;
-            padding: 16px;
-            line-height: 1.5;
-        }
+    body {
+      font-family: 'Poppins', system-ui, sans-serif;
+      background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+      color: var(--text);
+      min-height: 100vh;
+      padding: 16px;
+      line-height: 1.5;
+    }
 
-        header {
-            text-align: center;
-            padding: 24px 16px;
-            background: #ffd700;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-        }
+    header {
+      text-align: center;
+      padding: 24px 16px;
+      background: #ffd700;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
 
-        .logo {
-            max-width: 180px;
-            border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            margin-bottom: 16px;
-        }
+    .logo {
+      max-width: 180px;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      margin-bottom: 16px;
+    }
 
-        h1 {
-            font-size: clamp(1.8rem, 7vw, 2.8rem);
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
+    h1 {
+      font-size: clamp(1.8rem, 7vw, 2.8rem);
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
 
-        main {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
 
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-        }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
 
-        .form-grid {
-            display: grid;
-            gap: 16px;
-        }
+    .form-grid {
+      display: grid;
+      gap: 16px;
+    }
 
-        @media (min-width: 640px) {
-            .form-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
+    @media (min-width: 640px) {
+      .form-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    }
 
-        label {
-            font-weight: 600;
-            margin-bottom: 6px;
-            display: block;
-            color: var(--text);
-        }
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+      color: var(--text);
+    }
 
-        input, select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 2px solid #ff69b4;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
+    input, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #ff69b4;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
 
-        .color-picker {
-            width: 48px;
-            height: 38px;
-            padding: 0;
-            border: none;
-            cursor: pointer;
-        }
+    .color-picker {
+      width: 48px;
+      height: 38px;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      vertical-align: middle;
+    }
 
-        .canvas-wrapper {
-            margin: 24px 0;
-            background: white;
-            border-radius: 12px;
-            padding: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-        }
+    .canvas-wrapper {
+      margin: 24px 0;
+      background: white;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
 
-        #meme-canvas {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            border: 2px solid var(--primary);
-            touch-action: none;
-        }
+    #meme-canvas {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 2px solid var(--primary);
+      touch-action: none;
+    }
 
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            margin: 20px 0;
-        }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin: 20px 0;
+    }
 
-        button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            min-width: 140px;
-        }
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-width: 140px;
+    }
 
-        button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-        }
+    button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
 
-        .audio-area {
-            margin-top: 32px;
-            text-align: center;
-        }
-
-        footer {
-            text-align: center;
-            padding: 32px 16px;
-            color: #777;
-            font-size: 0.9rem;
-            margin-top: 40px;
-        }
-
-        @media (max-width: 480px) {
-            .controls button {
-                flex: 1 1 45%;
-                min-width: unset;
-            }
-        }
-    </style>
+    @media (max-width: 480px) {
+      .controls button {
+        flex: 1 1 45%;
+        min-width: unset;
+      }
+    }
+  </style>
 </head>
 <body>
 
 <header>
-    <img src="logo.png" alt="MYLESKY PASAWAY" class="logo">
-    <h1>MYLESKY PASAWAY</h1>
-    <p>The Naughtiest Meme Coin on Solana</p>
+  <img src="logo.png" alt="MYLESKY PASAWAY" class="logo">
+  <h1>MYLESKY PASAWAY</h1>
+  <p>The Naughtiest Meme Coin on Solana</p>
 </header>
 
 <main>
 
 <div class="card">
-    <h2 style="text-align:center; margin-bottom:20px;">Meme Generator</h2>
+  <h2 style="text-align:center; margin-bottom:20px;">Meme Generator</h2>
 
-    <div class="form-grid">
+  <div class="form-grid">
 
-        <div>
-            <label for="template-select">Template</label>
-            <select id="template-select">
-                <option value="0">Distracted Boyfriend</option>
-                <option value="1">Drake Hotline Bling</option>
-                <option value="2">Success Kid</option>
-                <option value="3">This Is Fine</option>
-                <option value="4">Expanding Brain</option>
-                <option value="5">Change My Mind</option>
-                <option value="6">Doge</option>
-                <option value="7">One Does Not Simply</option>
-                <option value="8">Grumpy Cat</option>
-                <option value="9">Mocking SpongeBob</option>
-                <option value="10">Woman Yelling at Cat</option>
-                <option value="11">Surprised Pikachu</option>
-                <option value="12">Two Buttons</option>
-                <option value="13">Batman Slapping Robin</option>
-                <option value="14">Evil Kermit</option>
-                <option value="15">Squidward Looking Out Window</option>
-                <option value="16">Confused Nick Young</option>
-                <option value="17">Is This a Pigeon?</option>
-                <option value="18">Roll Safe</option>
-                <option value="19">American Chopper Argument</option>
-                <option value="20">Buff Doge vs Cheems</option>
-                <option value="21">Trade Offer</option>
-                <option value="22">Galaxy Brain</option>
-                <option value="23">Stonks</option>
-                <option value="24">Crying Jordan</option>
-                <option value="25">Sad Affleck</option>
-                <option value="26">Epic Handshake</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="font-select">Default Font</label>
-            <select id="font-select">
-                <option value="Impact">Impact (classic meme)</option>
-                <option value="Arial Black">Arial Black</option>
-                <option value="Helvetica">Helvetica</option>
-                <option value="Comic Sans MS">Comic Sans MS</option>
-                <option value="Verdana">Verdana</option>
-                <option value="Anton">Anton</option>
-                <option value="Oswald">Oswald</option>
-                <option value="Roboto">Roboto Bold</option>
-                <option value="Montserrat">Montserrat</option>
-                <option value="Bebas Neue">Bebas Neue</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="text-color">Default Text Color</label>
-            <input type="color" id="text-color" value="#ffffff" class="color-picker">
-        </div>
-
+    <div>
+      <label for="template-select">Meme Template</label>
+      <select id="template-select">
+        <option value="0">Distracted Boyfriend</option>
+        <option value="1">Drake Hotline Bling</option>
+        <option value="2">Success Kid</option>
+        <option value="3">This Is Fine</option>
+        <option value="4">Expanding Brain</option>
+        <option value="5">Change My Mind</option>
+        <option value="6">Doge</option>
+        <option value="7">One Does Not Simply</option>
+        <option value="8">Grumpy Cat</option>
+        <option value="9">Mocking SpongeBob</option>
+        <option value="10">Woman Yelling at Cat</option>
+        <option value="11">Surprised Pikachu</option>
+        <option value="12">Two Buttons</option>
+        <option value="13">Batman Slapping Robin</option>
+        <option value="14">Evil Kermit</option>
+        <option value="15">Squidward Looking Out Window</option>
+        <option value="16">Confused Nick Young</option>
+        <option value="17">Is This a Pigeon?</option>
+        <option value="18">Roll Safe</option>
+        <option value="19">American Chopper Argument</option>
+        <option value="20">Buff Doge vs Cheems</option>
+        <option value="21">Trade Offer</option>
+        <option value="22">Galaxy Brain</option>
+        <option value="23">Stonks</option>
+        <option value="24">Crying Jordan</option>
+        <option value="25">Sad Affleck</option>
+        <option value="26">Epic Handshake</option>
+      </select>
     </div>
 
-    <div class="controls">
-        <button onclick="generateMeme()">Load Template</button>
-        <button onclick="addTextBox()">+ Add Text Layer</button>
-        <button onclick="downloadMeme()">Download Meme</button>
+    <div>
+      <label for="font-select">Font</label>
+      <select id="font-select">
+        <option value="Impact">Impact (classic meme)</option>
+        <option value="Arial Black">Arial Black</option>
+        <option value="Helvetica">Helvetica</option>
+        <option value="Comic Sans MS">Comic Sans MS</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Anton">Anton</option>
+        <option value="Oswald">Oswald</option>
+        <option value="Roboto">Roboto Bold</option>
+        <option value="Montserrat">Montserrat</option>
+        <option value="Bebas Neue">Bebas Neue</option>
+      </select>
     </div>
 
-    <div class="canvas-wrapper">
-        <canvas id="meme-canvas"></canvas>
+    <div>
+      <label for="text-color">Text Color</label>
+      <input type="color" id="text-color" value="#ffffff" class="color-picker">
     </div>
 
-</div>
+  </div>
 
-<div class="audio-area">
-    <p>Background Music 🎵</p>
-    <button id="musicToggle" onclick="toggleMusic()">Play ▶️</button>
-    <audio id="bgMusic" loop>
-        <source src="https://cdn.pixabay.com/audio/2023/08/07/audio_6d4e8d3d9d.mp3" type="audio/mpeg">
-    </audio>
+  <div class="controls">
+    <button onclick="loadTemplate()">Load / Change Template</button>
+    <button onclick="addText()">+ Add Text Layer</button>
+    <button onclick="applyStyleToAll()">Apply Font & Color to All Text</button>
+    <button onclick="downloadMeme()">Download</button>
+  </div>
+
+  <div class="canvas-wrapper">
+    <canvas id="meme-canvas"></canvas>
+  </div>
+
 </div>
 
 </main>
 
-<footer>
-    © 2026 MYLESKY PASAWAY • Not financial advice • DYOR
+<footer style="text-align:center; padding:32px 16px; color:#777; font-size:0.9rem; margin-top:40px;">
+  © 2026 MYLESKY PASAWAY • DYOR • Not financial advice
 </footer>
 
 <script>
 // ────────────────────────────────────────────────
-// MEME TEMPLATES (you can add more URLs later)
+// MEME TEMPLATES
 // ────────────────────────────────────────────────
 const templates = [
-    "https://i.imgflip.com/1ur9b0.jpg",     // Distracted Boyfriend
-    "https://i.imgflip.com/30b1gx.jpg",     // Drake Hotline Bling
-    "https://i.imgflip.com/gk5a.jpg",       // Success Kid
-    "https://i.imgflip.com/grju.jpg",       // This Is Fine
-    "https://i.imgflip.com/1jwhww.jpg",     // Expanding Brain
-    "https://i.imgflip.com/24y43o.jpg",     // Change My Mind
-    "https://i.imgflip.com/4t0m5.jpg",      // Doge
-    "https://i.imgflip.com/1bij.jpg",       // One Does Not Simply
-    "https://i.imgflip.com/8p0a.jpg",       // Grumpy Cat
-    "https://i.imgflip.com/1otk96.jpg",     // Mocking SpongeBob
-    "https://i.imgflip.com/3nw4y7.jpg",     // Woman Yelling at Cat
-    "https://i.imgflip.com/2kbn1e.jpg",     // Surprised Pikachu
-    "https://i.imgflip.com/1g8my4.jpg",     // Two Buttons
-    "https://i.imgflip.com/9ehk.jpg",       // Batman Slapping Robin
-    "https://i.imgflip.com/1e7ygt.jpg",     // Evil Kermit
-    // ... you can continue adding more URLs here
+  "https://i.imgflip.com/1ur9b0.jpg",   // 0
+  "https://i.imgflip.com/30b1gx.jpg",   // 1
+  "https://i.imgflip.com/gk5a.jpg",     // 2
+  "https://i.imgflip.com/grju.jpg",     // 3
+  "https://i.imgflip.com/1jwhww.jpg",   // 4
+  "https://i.imgflip.com/24y43o.jpg",   // 5
+  "https://i.imgflip.com/4t0m5.jpg",    // 6
+  "https://i.imgflip.com/1bij.jpg",     // 7
+  "https://i.imgflip.com/8p0a.jpg",     // 8
+  "https://i.imgflip.com/1otk96.jpg",   // 9
+  "https://i.imgflip.com/3nw4y7.jpg",   // 10
+  "https://i.imgflip.com/2kbn1e.jpg",   // 11
+  "https://i.imgflip.com/1g8my4.jpg",   // 12
+  "https://i.imgflip.com/9ehk.jpg",     // 13
+  "https://i.imgflip.com/1e7ygt.jpg",   // 14
+  "https://i.imgflip.com/1x9y1.jpg",    // 15
+  "https://i.imgflip.com/1yxv1.jpg",    // 16
+  "https://i.imgflip.com/1h7in.jpg",    // 17
+  "https://i.imgflip.com/19k6q.jpg",    // 18
+  "https://i.imgflip.com/43aew.jpg",    // 19
+  "https://i.imgflip.com/54hjww.jpg",   // 20
+  "https://i.imgflip.com/1xyk3.jpg",    // 21
+  "https://i.imgflip.com/1yxv1.jpg",    // 22
+  "https://i.imgflip.com/1yxv1.jpg",    // 23
+  "https://i.imgflip.com/1yxv1.jpg",    // 24
+  "https://i.imgflip.com/1yxv1.jpg",    // 25
+  "https://i.imgflip.com/1yxv1.jpg"     // 26
 ];
 
 let canvas = null;
 
 function initCanvas() {
-    const width = Math.min(window.innerWidth - 48, 700);
-    canvas = new fabric.Canvas('meme-canvas', {
-        width: width,
-        height: width * 1, // square for most memes
-        backgroundColor: '#ffffff',
-        selection: false
-    });
+  const w = Math.min(window.innerWidth - 48, 700);
+  canvas = new fabric.Canvas('meme-canvas', {
+    width: w,
+    height: w,
+    backgroundColor: '#ffffff',
+    selection: false
+  });
 
-    // Handle resize
-    window.addEventListener('resize', () => {
-        const newWidth = Math.min(window.innerWidth - 48, 700);
-        canvas.setDimensions({ width: newWidth, height: newWidth });
-    });
+  window.addEventListener('resize', () => {
+    const nw = Math.min(window.innerWidth - 48, 700);
+    canvas.setDimensions({ width: nw, height: nw });
+  });
 }
 
-function generateMeme() {
-    if (!canvas) initCanvas();
+function loadTemplate() {
+  if (!canvas) initCanvas();
 
-    const idx = document.getElementById('template-select').selectedIndex;
-    const url = templates[idx];
+  const idx = document.getElementById('template-select').selectedIndex;
+  const url = templates[idx];
 
-    fabric.Image.fromURL(url, img => {
-        canvas.clear();
-        const scale = Math.min(
-            canvas.getWidth() / img.width,
-            canvas.getHeight() / img.height
-        ) * 0.98;
+  fabric.Image.fromURL(url, img => {
+    canvas.clear();
+    const scale = Math.min(
+      canvas.getWidth() / img.width,
+      canvas.getHeight() / img.height
+    ) * 0.98;
 
-        img.scale(scale);
-        img.set({
-            left: (canvas.getWidth() - img.getScaledWidth()) / 2,
-            top: (canvas.getHeight() - img.getScaledHeight()) / 2,
-            selectable: false,
-            evented: false
-        });
-
-        canvas.add(img);
-        canvas.sendToBack(img);
-        canvas.requestRenderAll();
-    }, { crossOrigin: 'anonymous' });
-}
-
-function addTextBox() {
-    if (!canvas) {
-        alert("Please load a template first");
-        return;
-    }
-
-    const font = document.getElementById('font-select').value;
-    const color = document.getElementById('text-color').value;
-
-    const text = new fabric.Textbox("EDIT ME", {
-        left: canvas.getWidth() / 2,
-        top: canvas.getHeight() / 3,
-        width: canvas.getWidth() * 0.8,
-        fontSize: Math.max(32, canvas.getWidth() / 14),
-        fontFamily: font,
-        fill: color,
-        stroke: '#000000',
-        strokeWidth: 3,
-        textAlign: 'center',
-        splitByGrapheme: true,
-        shadow: new fabric.Shadow({color: 'black', blur: 6, offsetX: 3, offsetY: 3}),
-        editable: true,
-        originX: 'center',
-        cornerColor: 'var(--primary)',
-        cornerSize: 10
+    img.scale(scale);
+    img.set({
+      left: (canvas.getWidth() - img.getScaledWidth()) / 2,
+      top: (canvas.getHeight() - img.getScaledHeight()) / 2,
+      selectable: false,
+      evented: false
     });
 
-    canvas.add(text);
-    text.setCoords();
-    canvas.setActiveObject(text);
+    canvas.add(img);
+    canvas.sendToBack(img);
     canvas.requestRenderAll();
+  }, { crossOrigin: 'anonymous' });
+}
+
+function addText() {
+  if (!canvas) {
+    alert("Load a template first");
+    return;
+  }
+
+  const font = document.getElementById('font-select').value;
+  const color = document.getElementById('text-color').value;
+
+  const t = new fabric.Textbox("EDIT ME", {
+    left: canvas.getWidth() / 2,
+    top: canvas.getHeight() / 3,
+    width: canvas.getWidth() * 0.8,
+    fontSize: Math.max(32, canvas.getWidth() / 14),
+    fontFamily: font,
+    fill: color,
+    stroke: '#000000',
+    strokeWidth: 3,
+    textAlign: 'center',
+    splitByGrapheme: true,
+    shadow: new fabric.Shadow({color: 'black', blur: 6, offsetX: 3, offsetY: 3}),
+    editable: true,
+    originX: 'center',
+    cornerColor: 'var(--primary)',
+    cornerSize: 10
+  });
+
+  canvas.add(t);
+  t.setCoords();
+  canvas.setActiveObject(t);
+  canvas.requestRenderAll();
+}
+
+function applyStyleToAll() {
+  if (!canvas) return;
+
+  const font = document.getElementById('font-select').value;
+  const color = document.getElementById('text-color').value;
+
+  canvas.getObjects('textbox').forEach(obj => {
+    obj.set({
+      fontFamily: font,
+      fill: color
+    });
+  });
+
+  canvas.requestRenderAll();
 }
 
 function downloadMeme() {
-    if (!canvas) return;
+  if (!canvas) return;
 
-    const link = document.createElement('a');
-    link.download = 'pasaway-meme.png';
-    link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
-    link.click();
-}
-
-// Music toggle
-function toggleMusic() {
-    const audio = document.getElementById('bgMusic');
-    const btn = document.getElementById('musicToggle');
-
-    if (audio.paused) {
-        audio.muted = false;
-        audio.play().catch(() => {
-            btn.textContent = "Play ▶️ (tap again)";
-        });
-        btn.textContent = "Pause ⏸️";
-    } else {
-        audio.pause();
-        btn.textContent = "Play ▶️";
-    }
+  const link = document.createElement('a');
+  link.download = 'pasaway-meme.png';
+  link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
+  link.click();
 }
 
 // Init
-window.addEventListener('load', () => {
-    initCanvas();
-    // Optional: auto load first template
-    // generateMeme();
-});
+window.addEventListener('load', initCanvas);
 </script>
 </body>
 </html>
