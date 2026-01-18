@@ -206,15 +206,15 @@
                 canvas.height = img.height;
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                // Professional meme text styling: white + thick black outline + strong shadow
+                // Professional meme text styling: white + thick white outline + strong shadow
                 const fontSize = Math.max(60, Math.floor(canvas.width / 8.5)); // large & scalable
                 ctx.font = `bold ${fontSize}px Impact, 'Arial Black', sans-serif`;
                 ctx.fillStyle = 'white';           // white text
-                ctx.strokeStyle = 'black';         // black outline
+                ctx.strokeStyle = 'white';         // black outline
                 ctx.lineWidth = Math.max(10, fontSize / 6.5); // thick stroke for visibility
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.shadowColor = 'black';
+                ctx.shadowColor = 'white';
                 ctx.shadowBlur = 12;               // strong blur for extra contrast
                 ctx.shadowOffsetX = 4;
                 ctx.shadowOffsetY = 4;
@@ -227,13 +227,7 @@
                 const bottomY = canvas.height - fontSize * 0.7;
                 wrapText(ctx, bottomText, canvas.width / 2, bottomY, canvas.width * 0.92, fontSize * 1.2);
 
-                // Subtle watermark
-                ctx.shadowBlur = 0;
-                ctx.shadowOffsetX = 0;
-                ctx.shadowOffsetY = 0;
-                ctx.font = `italic ${Math.floor(fontSize * 0.35)}px Poppins, sans-serif`;
-                ctx.fillStyle = 'rgba(255,255,255,0.75)';
-                ctx.fillText('#MyleskyPasaway', canvas.width / 2, canvas.height - 20);
+               
 
                 // Download setup
                 const link = document.getElementById('download-link');
