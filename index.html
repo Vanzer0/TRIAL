@@ -1,402 +1,396 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MYLESKY PASAWAY: The mischievous Solana meme coin with a unique Meme Generator utility!">
-    <meta property="og:title" content="MYLESKY PASAWAY - Naughtiest Meme Coin on Solana">
-    <meta property="og:description" content="Join the fun with custom memes and community rewards. Pasaway vibes only!">
-    <meta property="og:image" content="https://your-image-url.com/pasaway-logo.png">
-    <meta property="og:url" content="https://your-vercel-domain.vercel.app">
-    <title>MYLESKY PASAWAY - The Mischievous Meme Coin</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Anton&family=Oswald:wght@700&family=Comic+Neue:wght@700&family=Roboto:wght@700&family=Montserrat:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MYLESKY PASAWAY - Meme Generator</title>
+    <meta name="description" content="Create custom memes with MYLESKY PASAWAY – drag multiple texts, choose fonts & colors!" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Anton&family=Oswald:wght@500;700&family=Comic+Neue:wght@700&family=Roboto:wght@700&family=Montserrat:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
     <style>
+        :root {
+            --primary: #ff69b4;
+            --primary-dark: #ff1493;
+            --bg-start: #d9f2ff;
+            --bg-end: #ffe4b5;
+            --text: #5c3c2e;
+        }
+
+        * { box-sizing: border-box; margin:0; padding:0; }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #d9f2ff, #ffe4b5);
-            color: #5c3c2e;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            overflow-x: hidden;
-            font-size: 16px;
-            line-height: 1.6;
+            font-family: 'Poppins', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+            color: var(--text);
+            min-height: 100vh;
+            padding: 16px;
+            line-height: 1.5;
         }
+
         header {
-            background-color: #ffd700;
-            color: #5c3c2e;
-            padding: 40px 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 24px 16px;
+            background: #ffd700;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
+
         .logo {
-            max-width: 200px;
-            margin: 0 auto 20px;
-            display: block;
+            max-width: 180px;
             border-radius: 50%;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            animation: bounceIn 1.5s ease-in-out infinite alternate;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            margin-bottom: 16px;
         }
+
         h1 {
-            font-size: clamp(2em, 8vw, 3em);
-            margin: 0 0 10px;
-            color: #ff69b4;
-            animation: fadeInDown 1s ease-in-out, rainbowText 4s infinite;
-        }
-        section {
-            padding: 30px 20px;
-            max-width: 1200px;
-            margin: 20px auto;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            background-color: #ffffff;
-        }
-        button {
-            background-color: #ff69b4;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1em;
-            cursor: pointer;
-            margin: 10px 5px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 6px rgba(255,105,180,0.4);
-            min-width: 160px;
-        }
-        button:hover {
-            background-color: #ff1493;
-            transform: scale(1.05);
-        }
-        #meme-canvas {
-            max-width: 100%;
-            height: auto;
-            border: 2px solid #ff69b4;
-            border-radius: 10px;
-            margin: 20px auto;
-            display: block;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            touch-action: none;
-        }
-        .form-group {
-            margin: 20px 0;
-            text-align: left;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        label {
-            display: block;
+            font-size: clamp(1.8rem, 7vw, 2.8rem);
+            color: var(--primary);
             margin-bottom: 8px;
-            font-weight: 600;
-            color: #5c3c2e;
         }
-        input, select {
-            padding: 10px;
-            width: 100%;
-            border: 2px solid #ff69b4;
-            border-radius: 8px;
-            font-size: 1em;
-            box-sizing: border-box;
-            background-color: #fff;
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
         }
-        .color-picker {
-            width: 50px;
-            height: 35px;
-            padding: 0;
-            border: none;
-            cursor: pointer;
-            vertical-align: middle;
-        }
-        .audio-controls {
-            margin: 20px 0;
-            font-size: 0.95em;
-        }
-        audio {
-            width: 90%;
-            max-width: 420px;
-            margin: 10px auto;
-            display: block;
-            border-radius: 10px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-        }
-        footer {
-            background-color: #5c3c2e;
-            color: #ffd700;
+
+        .card {
+            background: white;
+            border-radius: 12px;
             padding: 20px;
-            margin-top: 40px;
-            font-size: 0.9em;
-            border-top: 4px solid #ff69b4;
-        }
-        @media (max-width: 768px) {
-            body { font-size: 14px; }
-            header { padding: 30px 15px; }
-            .logo { max-width: 160px; }
-            h1 { font-size: 2.2em; }
-            section { padding: 20px 15px; margin: 15px; }
-            button { padding: 10px 20px; font-size: 0.95em; min-width: 100%; margin: 10px 0; }
-            .form-group { margin: 15px 0; }
-            #meme-canvas { max-height: 400px; }
-        }
-        @keyframes bounceIn { 0% { transform: scale(0.95) translateY(0); } 100% { transform: scale(1.05) translateY(-12px); } }
-        @keyframes rainbowText { 0%,100% { color: #ff69b4; } 33% { color: #ffd700; } 66% { color: #add8e6; } }
-    </style>
-</head>
-<body>
-    <header>
-        <img src="logo.png" alt="MYLESKY PASAWAY Logo" class="logo">
-        <h1>MYLESKY PASAWAY</h1>
-        <p>The Naughtiest Meme Coin on Solana – Pasaway Vibes Only! 🐻🎉</p>
-    </header>
-
-    <section id="utility">
-        <h2>Pasaway Meme Generator 🤪😂</h2>
-        <p>Choose from 30+ popular templates (updated for 2026 vibes), pick font & color, generate, then drag text freely!</p>
-
-        <div class="form-group">
-            <label for="template-select">Choose Meme Template (Popular & Trending):</label>
-            <select id="template-select">
-                <option value="0">Distracted Boyfriend (classic shift in attention)</option>
-                <option value="1">Drake Hotline Bling (reject/approve)</option>
-                <option value="2">Success Kid (small victory)</option>
-                <option value="3">This Is Fine (dog in fire)</option>
-                <option value="4">Expanding Brain (escalating ideas)</option>
-                <option value="5">Change My Mind (guy at table)</option>
-                <option value="6">Doge (such wow)</option>
-                <option value="7">One Does Not Simply (Boromir)</option>
-                <option value="8">Grumpy Cat (no)</option>
-                <option value="9">Mocking SpongeBob (alternating case)</option>
-                <option value="10">Woman Yelling at Cat (argument)</option>
-                <option value="11">Surprised Pikachu (shock)</option>
-                <option value="12">Two Buttons (hard choice)</option>
-                <option value="13">Batman Slapping Robin (correction)</option>
-                <option value="14">Evil Kermit (inner conflict)</option>
-                <option value="15">Squidward Looking Out Window (sad watching)</option>
-                <option value="16">SpongeBob Mocking (text alternation)</option>
-                <option value="17">Confused Nick Young (questioning)</option>
-                <option value="18">Left Exit 12 Off Ramp (decision)</option>
-                <option value="19">Is This a Pigeon? (confusion)</option>
-                <option value="20">Roll Safe (thinking smart)</option>
-                <option value="21">American Chopper Argument (escalating fight)</option>
-                <option value="22">Buff Doge vs Cheems (superior/inferior)</option>
-                <option value="23">Trade Offer (deal meme)</option>
-                <option value="24">Galaxy Brain (escalating intelligence)</option>
-                <option value="25">Stonks (upward arrow guy)</option>
-                <option value="26">Crying Jordan (sad Michael Jordan)</option>
-                <option value="27">Distracted Girlfriend Variant</option>
-                <option value="28">Sad Affleck (depressed Ben Affleck)</option>
-                <option value="29">Epic Handshake (unexpected agreement)</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="top-text">Top Text:</label>
-            <input type="text" id="top-text" placeholder="e.g., WHEN YOU SEE $MYLESKY">
-        </div>
-
-        <div class="form-group">
-            <label for="bottom-text">Bottom Text:</label>
-            <input type="text" id="bottom-text" placeholder="e.g., BUT STILL PASAWAY">
-        </div>
-
-        <div class="form-group">
-            <label>Text Options (applies to both top & bottom):</label><br>
-            <label for="font-select">Font:</label>
-            <select id="font-select">
-                <option value="Impact">Impact (Classic Meme Bold)</option>
-                <option value="Arial Black">Arial Black</option>
-                <option value="Helvetica">Helvetica</option>
-                <option value="Comic Sans MS">Comic Sans MS (Ironic)</option>
-                <option value="Verdana">Verdana</option>
-                <option value="Anton">Anton (Modern Bold)</option>
-                <option value="Oswald">Oswald</option>
-                <option value="Roboto">Roboto Bold</option>
-                <option value="Montserrat">Montserrat</option>
-                <option value="Bebas Neue">Bebas Neue (Condensed)</option>
-            </select>
-            <br><br>
-            <label for="text-color">Text Color:</label>
-            <input type="color" id="text-color" value="#ffffff" class="color-picker">
-        </div>
-
-        <button onclick="generateMeme()">Generate Meme! 🌟</button>
-
-        <canvas id="meme-canvas" width="600" height="600"></canvas>
-
-        <div style="margin-top:15px;">
-            <a id="download-link" style="display:none; font-size:1.1em; color:#ff69b4; text-decoration:none;" onclick="downloadMeme()">Download Meme 📥</a>
-        </div>
-
-        <!-- Audio controls -->
-        <div class="audio-controls">
-            <p>Cute Pasaway Background Music 🎶</p>
-            <button id="musicToggle" onclick="toggleMusic()">Play Music ▶️</button>
-            <audio id="bgMusic" loop autoplay muted>
-                <source src="https://cdn.pixabay.com/audio/2024/09/20/audio_0f9d8c7b6f.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2026 MYLESKY PASAWAY • DYOR • Not financial advice</p>
-    </footer>
-
-    <script>
-        const memeTemplates = [
-            {name: 'Distracted Boyfriend', url: 'https://i.imgflip.com/1ur9b0.jpg'},
-            {name: 'Drake Hotline Bling', url: 'https://i.imgflip.com/30b1gx.jpg'},
-            {name: 'Success Kid', url: 'https://i.imgflip.com/gk5a.jpg'},
-            {name: 'This Is Fine', url: 'https://i.imgflip.com/grju.jpg'},
-            {name: 'Expanding Brain', url: 'https://i.imgflip.com/1jwhww.jpg'},
-            {name: 'Change My Mind', url: 'https://i.imgflip.com/24y43o.jpg'},
-            {name: 'Doge', url: 'https://i.imgflip.com/4t0m5.jpg'},
-            {name: 'One Does Not Simply', url: 'https://i.imgflip.com/1bij.jpg'},
-            {name: 'Grumpy Cat', url: 'https://i.imgflip.com/8p0a.jpg'},
-            {name: 'Mocking SpongeBob', url: 'https://i.imgflip.com/1otk96.jpg'},
-            {name: 'Woman Yelling at Cat', url: 'https://i.imgflip.com/3nw4y7.jpg'},
-            {name: 'Surprised Pikachu', url: 'https://i.imgflip.com/2kbn1e.jpg'},
-            {name: 'Two Buttons', url: 'https://i.imgflip.com/1g8my4.jpg'},
-            {name: 'Batman Slapping Robin', url: 'https://i.imgflip.com/9ehk.jpg'},
-            {name: 'Evil Kermit', url: 'https://i.imgflip.com/1e7ygt.jpg'},
-            {name: 'Squidward Looking Out Window', url: 'https://i.imgflip.com/1x9y1.jpg'},
-            {name: 'SpongeBob Mocking', url: 'https://i.imgflip.com/1otk96.jpg'},
-            {name: 'Confused Nick Young', url: 'https://i.imgflip.com/1yxv1.jpg'},
-            {name: 'Left Exit 12 Off Ramp', url: 'https://i.imgflip.com/1x6f1.jpg'},
-            {name: 'Is This a Pigeon?', url: 'https://i.imgflip.com/1bij.jpg'},
-            {name: 'Roll Safe', url: 'https://i.imgflip.com/1h7in.jpg'},
-            {name: 'American Chopper Argument', url: 'https://i.imgflip.com/19k6q.jpg'},
-            {name: 'Buff Doge vs Cheems', url: 'https://i.imgflip.com/43aew.jpg'},
-            {name: 'Trade Offer', url: 'https://i.imgflip.com/54hjww.jpg'},
-            {name: 'Galaxy Brain', url: 'https://i.imgflip.com/1xyk3.jpg'},
-            {name: 'Stonks', url: 'https://i.imgflip.com/1yxv1.jpg'},
-            {name: 'Crying Jordan', url: 'https://i.imgflip.com/1yxv1.jpg'},
-            {name: 'Distracted Girlfriend Variant', url: 'https://i.imgflip.com/1ur9b0.jpg'},
-            {name: 'Sad Affleck', url: 'https://i.imgflip.com/1yxv1.jpg'},
-            {name: 'Epic Handshake', url: 'https://i.imgflip.com/1yxv1.jpg'}
-        ];
-
-        let fabricCanvas = null;
-
-        function initFabric() {
-            const canvasEl = document.getElementById('meme-canvas');
-            fabricCanvas = new fabric.Canvas('meme-canvas', {
-                width: window.innerWidth < 768 ? 400 : 600,
-                height: window.innerWidth < 768 ? 400 : 600,
-                backgroundColor: '#fff',
-                selection: false
-            });
-            window.addEventListener('resize', () => {
-                fabricCanvas.setDimensions({
-                    width: window.innerWidth < 768 ? 400 : 600,
-                    height: window.innerWidth < 768 ? 400 : 600
-                });
-            });
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
         }
 
-        function generateMeme() {
-            if (!fabricCanvas) initFabric();
-
-            const topTextVal = document.getElementById('top-text').value.trim().toUpperCase();
-            const bottomTextVal = document.getElementById('bottom-text').value.trim().toUpperCase();
-            const idx = parseInt(document.getElementById('template-select').value);
-            const selectedFont = document.getElementById('font-select').value;
-            const textColor = document.getElementById('text-color').value;
-
-            const template = memeTemplates[idx];
-
-            fabric.Image.fromURL(template.url, (img) => {
-                const scale = Math.min(
-                    fabricCanvas.getWidth() * 0.9 / img.width,
-                    fabricCanvas.getHeight() * 0.9 / img.height
-                );
-                img.scaleToWidth(img.width * scale);
-                img.scaleToHeight(img.height * scale);
-                img.set({
-                    left: (fabricCanvas.getWidth() - img.getScaledWidth()) / 2,
-                    top: (fabricCanvas.getHeight() - img.getScaledHeight()) / 2,
-                    selectable: false,
-                    evented: false
-                });
-                fabricCanvas.clear();
-                fabricCanvas.add(img);
-                fabricCanvas.sendToBack(img);
-
-                const commonTextProps = {
-                    width: fabricCanvas.getWidth() * 0.88,
-                    fontSize: Math.max(30, fabricCanvas.getWidth() / 12),
-                    fontFamily: selectedFont,
-                    fill: textColor,
-                    stroke: '#000000',
-                    strokeWidth: 4,
-                    textAlign: 'center',
-                    splitByGrapheme: true,
-                    shadow: new fabric.Shadow({ color: '#000000', blur: 6, offsetX: 3, offsetY: 3 }),
-                    originX: 'center',
-                    editable: true,
-                    cornerColor: '#ff69b4',
-                    cornerSize: 10
-                };
-
-                if (topTextVal) {
-                    const topTxt = new fabric.Textbox(topTextVal, {
-                        ...commonTextProps,
-                        left: fabricCanvas.getWidth() / 2,
-                        top: 40
-                    });
-                    fabricCanvas.add(topTxt);
-                    topTxt.setCoords();
-                }
-
-                if (bottomTextVal) {
-                    const bottomTxt = new fabric.Textbox(bottomTextVal, {
-                        ...commonTextProps,
-                        left: fabricCanvas.getWidth() / 2,
-                        top: fabricCanvas.getHeight() - 100
-                    });
-                    fabricCanvas.add(bottomTxt);
-                    bottomTxt.setCoords();
-                }
-
-                fabricCanvas.requestRenderAll();
-                document.getElementById('download-link').style.display = 'inline-block';
-            }, { crossOrigin: 'anonymous' });
+        .form-grid {
+            display: grid;
+            gap: 16px;
         }
 
-        function downloadMeme() {
-            if (!fabricCanvas) return;
-            const dataURL = fabricCanvas.toDataURL({ format: 'png', multiplier: 2 });
-            const link = document.getElementById('download-link');
-            link.href = dataURL;
-            link.download = 'mylesky-pasaway-meme.png';
-            link.click();
-        }
-
-        function toggleMusic() {
-            const audio = document.getElementById('bgMusic');
-            const btn = document.getElementById('musicToggle');
-
-            if (audio.paused || audio.ended) {
-                audio.muted = false;
-                audio.play().then(() => {
-                    btn.textContent = 'Pause Music ⏸️';
-                }).catch(err => {
-                    console.log("Play blocked:", err);
-                    btn.textContent = 'Play Music ▶️';
-                });
-            } else {
-                audio.pause();
-                btn.textContent = 'Play Music ▶️';
+        @media (min-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
-        window.addEventListener('load', () => {
-            initFabric();
-            // Gentle autoplay attempt (muted)
-            document.getElementById('bgMusic').play().catch(() => {});
+        label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+            color: var(--text);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #ff69b4;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .color-picker {
+            width: 48px;
+            height: 38px;
+            padding: 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        .canvas-wrapper {
+            margin: 24px 0;
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        #meme-canvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+            touch-action: none;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 140px;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .audio-area {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 16px;
+            color: #777;
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 480px) {
+            .controls button {
+                flex: 1 1 45%;
+                min-width: unset;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="logo.png" alt="MYLESKY PASAWAY" class="logo">
+    <h1>MYLESKY PASAWAY</h1>
+    <p>The Naughtiest Meme Coin on Solana</p>
+</header>
+
+<main>
+
+<div class="card">
+    <h2 style="text-align:center; margin-bottom:20px;">Meme Generator</h2>
+
+    <div class="form-grid">
+
+        <div>
+            <label for="template-select">Template</label>
+            <select id="template-select">
+                <option value="0">Distracted Boyfriend</option>
+                <option value="1">Drake Hotline Bling</option>
+                <option value="2">Success Kid</option>
+                <option value="3">This Is Fine</option>
+                <option value="4">Expanding Brain</option>
+                <option value="5">Change My Mind</option>
+                <option value="6">Doge</option>
+                <option value="7">One Does Not Simply</option>
+                <option value="8">Grumpy Cat</option>
+                <option value="9">Mocking SpongeBob</option>
+                <option value="10">Woman Yelling at Cat</option>
+                <option value="11">Surprised Pikachu</option>
+                <option value="12">Two Buttons</option>
+                <option value="13">Batman Slapping Robin</option>
+                <option value="14">Evil Kermit</option>
+                <option value="15">Squidward Looking Out Window</option>
+                <option value="16">Confused Nick Young</option>
+                <option value="17">Is This a Pigeon?</option>
+                <option value="18">Roll Safe</option>
+                <option value="19">American Chopper Argument</option>
+                <option value="20">Buff Doge vs Cheems</option>
+                <option value="21">Trade Offer</option>
+                <option value="22">Galaxy Brain</option>
+                <option value="23">Stonks</option>
+                <option value="24">Crying Jordan</option>
+                <option value="25">Sad Affleck</option>
+                <option value="26">Epic Handshake</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="font-select">Default Font</label>
+            <select id="font-select">
+                <option value="Impact">Impact (classic meme)</option>
+                <option value="Arial Black">Arial Black</option>
+                <option value="Helvetica">Helvetica</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Anton">Anton</option>
+                <option value="Oswald">Oswald</option>
+                <option value="Roboto">Roboto Bold</option>
+                <option value="Montserrat">Montserrat</option>
+                <option value="Bebas Neue">Bebas Neue</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="text-color">Default Text Color</label>
+            <input type="color" id="text-color" value="#ffffff" class="color-picker">
+        </div>
+
+    </div>
+
+    <div class="controls">
+        <button onclick="generateMeme()">Load Template</button>
+        <button onclick="addTextBox()">+ Add Text Layer</button>
+        <button onclick="downloadMeme()">Download Meme</button>
+    </div>
+
+    <div class="canvas-wrapper">
+        <canvas id="meme-canvas"></canvas>
+    </div>
+
+</div>
+
+<div class="audio-area">
+    <p>Background Music 🎵</p>
+    <button id="musicToggle" onclick="toggleMusic()">Play ▶️</button>
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/audio/2023/08/07/audio_6d4e8d3d9d.mp3" type="audio/mpeg">
+    </audio>
+</div>
+
+</main>
+
+<footer>
+    © 2026 MYLESKY PASAWAY • Not financial advice • DYOR
+</footer>
+
+<script>
+// ────────────────────────────────────────────────
+// MEME TEMPLATES (you can add more URLs later)
+// ────────────────────────────────────────────────
+const templates = [
+    "https://i.imgflip.com/1ur9b0.jpg",     // Distracted Boyfriend
+    "https://i.imgflip.com/30b1gx.jpg",     // Drake Hotline Bling
+    "https://i.imgflip.com/gk5a.jpg",       // Success Kid
+    "https://i.imgflip.com/grju.jpg",       // This Is Fine
+    "https://i.imgflip.com/1jwhww.jpg",     // Expanding Brain
+    "https://i.imgflip.com/24y43o.jpg",     // Change My Mind
+    "https://i.imgflip.com/4t0m5.jpg",      // Doge
+    "https://i.imgflip.com/1bij.jpg",       // One Does Not Simply
+    "https://i.imgflip.com/8p0a.jpg",       // Grumpy Cat
+    "https://i.imgflip.com/1otk96.jpg",     // Mocking SpongeBob
+    "https://i.imgflip.com/3nw4y7.jpg",     // Woman Yelling at Cat
+    "https://i.imgflip.com/2kbn1e.jpg",     // Surprised Pikachu
+    "https://i.imgflip.com/1g8my4.jpg",     // Two Buttons
+    "https://i.imgflip.com/9ehk.jpg",       // Batman Slapping Robin
+    "https://i.imgflip.com/1e7ygt.jpg",     // Evil Kermit
+    // ... you can continue adding more URLs here
+];
+
+let canvas = null;
+
+function initCanvas() {
+    const width = Math.min(window.innerWidth - 48, 700);
+    canvas = new fabric.Canvas('meme-canvas', {
+        width: width,
+        height: width * 1, // square for most memes
+        backgroundColor: '#ffffff',
+        selection: false
+    });
+
+    // Handle resize
+    window.addEventListener('resize', () => {
+        const newWidth = Math.min(window.innerWidth - 48, 700);
+        canvas.setDimensions({ width: newWidth, height: newWidth });
+    });
+}
+
+function generateMeme() {
+    if (!canvas) initCanvas();
+
+    const idx = document.getElementById('template-select').selectedIndex;
+    const url = templates[idx];
+
+    fabric.Image.fromURL(url, img => {
+        canvas.clear();
+        const scale = Math.min(
+            canvas.getWidth() / img.width,
+            canvas.getHeight() / img.height
+        ) * 0.98;
+
+        img.scale(scale);
+        img.set({
+            left: (canvas.getWidth() - img.getScaledWidth()) / 2,
+            top: (canvas.getHeight() - img.getScaledHeight()) / 2,
+            selectable: false,
+            evented: false
         });
-    </script>
+
+        canvas.add(img);
+        canvas.sendToBack(img);
+        canvas.requestRenderAll();
+    }, { crossOrigin: 'anonymous' });
+}
+
+function addTextBox() {
+    if (!canvas) {
+        alert("Please load a template first");
+        return;
+    }
+
+    const font = document.getElementById('font-select').value;
+    const color = document.getElementById('text-color').value;
+
+    const text = new fabric.Textbox("EDIT ME", {
+        left: canvas.getWidth() / 2,
+        top: canvas.getHeight() / 3,
+        width: canvas.getWidth() * 0.8,
+        fontSize: Math.max(32, canvas.getWidth() / 14),
+        fontFamily: font,
+        fill: color,
+        stroke: '#000000',
+        strokeWidth: 3,
+        textAlign: 'center',
+        splitByGrapheme: true,
+        shadow: new fabric.Shadow({color: 'black', blur: 6, offsetX: 3, offsetY: 3}),
+        editable: true,
+        originX: 'center',
+        cornerColor: 'var(--primary)',
+        cornerSize: 10
+    });
+
+    canvas.add(text);
+    text.setCoords();
+    canvas.setActiveObject(text);
+    canvas.requestRenderAll();
+}
+
+function downloadMeme() {
+    if (!canvas) return;
+
+    const link = document.createElement('a');
+    link.download = 'pasaway-meme.png';
+    link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
+    link.click();
+}
+
+// Music toggle
+function toggleMusic() {
+    const audio = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicToggle');
+
+    if (audio.paused) {
+        audio.muted = false;
+        audio.play().catch(() => {
+            btn.textContent = "Play ▶️ (tap again)";
+        });
+        btn.textContent = "Pause ⏸️";
+    } else {
+        audio.pause();
+        btn.textContent = "Play ▶️";
+    }
+}
+
+// Init
+window.addEventListener('load', () => {
+    initCanvas();
+    // Optional: auto load first template
+    // generateMeme();
+});
+</script>
 </body>
 </html>
