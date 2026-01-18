@@ -12,106 +12,27 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Add Fabric.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #d9f2ff, #ffe4b5);
-            color: #5c3c2e;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            overflow-x: hidden;
-            font-size: 16px;
-        }
-        header {
-            background-color: #ffd700;
-            color: #5c3c2e;
-            padding: 30px 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .logo {
-            max-width: 220px;
-            margin: 10px auto;
-            display: block;
-            border-radius: 50%;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            animation: bounceIn 1.5s ease-in-out infinite alternate;
-        }
-        h1 {
-            font-size: clamp(2em, 6vw, 2.8em);
-            margin: 10px 0;
-            color: #ff69b4;
-            animation: fadeInDown 1s ease-in-out, rainbowText 4s infinite;
-        }
-        section {
-            padding: 25px 15px;
-            max-width: 900px;
-            margin: 15px auto;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            background-color: #ffffff;
-        }
-        button {
-            background-color: #ff69b4;
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            font-size: 1.1em;
-            cursor: pointer;
-            margin: 15px 0;
-            border-radius: 10px;
-            transition: all 0.3s;
-            box-shadow: 0 3px 6px rgba(255,105,180,0.4);
-            width: 100%;
-            max-width: 320px;
-        }
-        button:hover {
-            background-color: #ff1493;
-            transform: scale(1.08) rotate(3deg);
-        }
-        #meme-canvas {
-            max-width: 100%;
-            height: auto;
-            border: 3px solid #ff69b4;
-            border-radius: 12px;
-            margin: 20px auto;
-            display: block;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
-        }
-        .form-group {
-            margin: 18px 0;
-        }
-        input, select {
-            padding: 12px;
-            width: 100%;
-            max-width: 500px;
-            border: 2px solid #ff69b4;
-            border-radius: 10px;
-            font-size: 1em;
-            box-sizing: border-box;
-        }
-        audio {
-            position: fixed;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 380px;
-            opacity: 0.85;
-            border-radius: 12px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-            z-index: 10;
-        }
-        @media (max-width: 768px) {
-            section { padding: 20px 12px; margin: 10px; }
-            .logo { max-width: 180px; }
-            h1 { font-size: 2.2em; }
-        }
+        body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #d9f2ff, #ffe4b5); color: #5c3c2e; margin: 0; padding: 0; text-align: center; overflow-x: hidden; font-size: 16px; }
+        header { background-color: #ffd700; color: #5c3c2e; padding: 30px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo { max-width: 220px; margin: 10px auto; display: block; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.2); animation: bounceIn 1.5s ease-in-out infinite alternate; }
+        h1 { font-size: clamp(2em, 6vw, 2.8em); margin: 10px 0; color: #ff69b4; animation: fadeInDown 1s ease-in-out, rainbowText 4s infinite; }
+        section { padding: 25px 15px; max-width: 900px; margin: 15px auto; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); background-color: #ffffff; }
+        button { background-color: #ff69b4; color: white; border: none; padding: 14px 28px; font-size: 1.1em; cursor: pointer; margin: 15px 0; border-radius: 10px; transition: all 0.3s; box-shadow: 0 3px 6px rgba(255,105,180,0.4); width: 100%; max-width: 320px; }
+        button:hover { background-color: #ff1493; transform: scale(1.08) rotate(3deg); }
+        #meme-canvas { max-width: 100%; height: auto; border: 3px solid #ff69b4; border-radius: 12px; margin: 20px auto; display: block; box-shadow: 0 5px 12px rgba(0,0,0,0.2); touch-action: none; }
+        .form-group { margin: 18px 0; }
+        input, select { padding: 12px; width: 100%; max-width: 500px; border: 2px solid #ff69b4; border-radius: 10px; font-size: 1em; box-sizing: border-box; }
+        audio { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 380px; opacity: 0.85; border-radius: 12px; box-shadow: 0 3px 8px rgba(0,0,0,0.2); z-index: 10; }
+        @media (max-width: 768px) { section { padding: 20px 12px; margin: 10px; } .logo { max-width: 180px; } h1 { font-size: 2.2em; } }
         @keyframes bounceIn { 0% { transform: scale(0.95) translateY(0); } 100% { transform: scale(1.05) translateY(-12px); } }
         @keyframes rainbowText { 0%,100% { color: #ff69b4; } 33% { color: #ffd700; } 66% { color: #add8e6; } }
     </style>
 </head>
 <body>
+    <!-- Your header, about, buy sections remain the same -->
     <header>
         <img src="logo.png" alt="MYLESKY PASAWAY" class="logo">
         <h1>MYLESKY PASAWAY</h1>
@@ -120,7 +41,7 @@
 
     <section id="utility">
         <h2>Pasaway Meme Generator 🤪😂</h2>
-        <p>Create epic memes – share on X/Telegram for community rewards!</p>
+        <p>Drag the text anywhere you want after generating! Share your creations for rewards!</p>
 
         <div class="form-group">
             <label for="template-select">Choose Template:</label>
@@ -152,12 +73,12 @@
             <input type="text" id="bottom-text" placeholder="e.g., BUT STILL PASAWAY">
         </div>
 
-        <button onclick="generateMeme()">Generate Meme! 🌟</button>
+        <button onclick="generateMeme()">Generate & Drag Text! 🌟</button>
 
         <canvas id="meme-canvas"></canvas>
 
         <div style="margin-top:15px;">
-            <a id="download-link" style="display:none; font-size:1.3em; color:#ff69b4; text-decoration:none;">Download Meme 📥</a>
+            <a id="download-link" style="display:none; font-size:1.3em; color:#ff69b4; text-decoration:none;" onclick="downloadMeme()">Download Meme 📥</a>
         </div>
 
         <div style="margin: 20px 0;">
@@ -168,7 +89,6 @@
     <!-- Cute background music -->
     <audio id="bgMusic" loop>
         <source src="https://cdn.pixabay.com/audio/2023/08/07/audio_6d4e8d3d9d.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
 
     <script>
@@ -189,88 +109,110 @@
             {name: 'Batman Slapping Robin', url: 'https://i.imgflip.com/9ehk.jpg'}
         ];
 
+        let fabricCanvas = null;
+
+        function initFabric() {
+            const canvasEl = document.getElementById('meme-canvas');
+            fabricCanvas = new fabric.Canvas('meme-canvas', {
+                width: 500,  // initial – will resize on load
+                height: 500,
+                backgroundColor: '#fff',
+                selection: false  // disable group selection for simplicity
+            });
+        }
+
         function generateMeme() {
-            const topText = (document.getElementById('top-text').value || '').toUpperCase().trim();
-            const bottomText = (document.getElementById('bottom-text').value || '').toUpperCase().trim();
+            if (!fabricCanvas) initFabric();
+
+            const topTextVal = document.getElementById('top-text').value.trim().toUpperCase();
+            const bottomTextVal = document.getElementById('bottom-text').value.trim().toUpperCase();
             const idx = parseInt(document.getElementById('template-select').value);
             const template = memeTemplates[idx];
 
-            const canvas = document.getElementById('meme-canvas');
-            const ctx = canvas.getContext('2d');
-            const img = new Image();
-            img.crossOrigin = "anonymous";
-            img.src = template.url;
+            fabric.Image.fromURL(template.url, (img) => {
+                // Scale image to fit canvas nicely (max 90% width/height)
+                const scale = Math.min(
+                    fabricCanvas.getWidth() * 0.9 / img.width,
+                    fabricCanvas.getHeight() * 0.9 / img.height
+                );
+                img.scaleToWidth(img.width * scale);
+                img.scaleToHeight(img.height * scale);
+                img.set({ left: (fabricCanvas.getWidth() - img.getScaledWidth()) / 2, top: (fabricCanvas.getHeight() - img.getScaledHeight()) / 2, selectable: false });
+                fabricCanvas.clear();
+                fabricCanvas.add(img);
+                fabricCanvas.sendToBack(img);
 
-            img.onload = () => {
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                // Add draggable top text
+                if (topTextVal) {
+                    const topTxt = new fabric.Textbox(topTextVal, {
+                        left: fabricCanvas.getWidth() / 2,
+                        top: 60,
+                        width: fabricCanvas.getWidth() * 0.85,
+                        fontSize: Math.max(40, fabricCanvas.getWidth() / 12),
+                        fontFamily: 'Impact, Arial Black, sans-serif',
+                        fill: 'white',
+                        stroke: 'black',
+                        strokeWidth: 6,
+                        textAlign: 'center',
+                        splitByGrapheme: true,  // better multiline
+                        shadow: new fabric.Shadow({ color: 'black', blur: 8, offsetX: 4, offsetY: 4 }),
+                        originX: 'center',
+                        editable: true
+                    });
+                    fabricCanvas.add(topTxt);
+                    topTxt.setCoords();
+                }
 
-                // Professional meme text styling: black + thick white outline + strong shadow
-                const fontSize = Math.max(60, Math.floor(canvas.width / 8.5)); // large & scalable
-                ctx.font = `bold ${fontSize}px Impact, 'Arial Black', sans-serif`;
-                ctx.fillStyle = 'white';           // white text
-                ctx.strokeStyle = 'white';         // black outline
-                ctx.lineWidth = Math.max(10, fontSize / 6.5); // thick stroke for visibility
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.shadowColor = 'black';
-                ctx.shadowBlur = 12;               // strong blur for extra contrast
-                ctx.shadowOffsetX = 4;
-                ctx.shadowOffsetY = 4;
+                // Add draggable bottom text
+                if (bottomTextVal) {
+                    const bottomTxt = new fabric.Textbox(bottomTextVal, {
+                        left: fabricCanvas.getWidth() / 2,
+                        top: fabricCanvas.getHeight() - 120,
+                        width: fabricCanvas.getWidth() * 0.85,
+                        fontSize: Math.max(40, fabricCanvas.getWidth() / 12),
+                        fontFamily: 'Impact, Arial Black, sans-serif',
+                        fill: 'white',
+                        stroke: 'black',
+                        strokeWidth: 6,
+                        textAlign: 'center',
+                        splitByGrapheme: true,
+                        shadow: new fabric.Shadow({ color: 'black', blur: 8, offsetX: 4, offsetY: 4 }),
+                        originX: 'center',
+                        editable: true
+                    });
+                    fabricCanvas.add(bottomTxt);
+                    bottomTxt.setCoords();
+                }
 
-                // Top text: positioned higher to avoid overlapping faces
-                const topY = fontSize * 1.3;
-                wrapText(ctx, topText, canvas.width / 2, topY, canvas.width * 0.92, fontSize * 1.2);
+                fabricCanvas.requestRenderAll();
 
-                // Bottom text: positioned lower
-                const bottomY = canvas.height - fontSize * 0.7;
-                wrapText(ctx, bottomText, canvas.width / 2, bottomY, canvas.width * 0.92, fontSize * 1.2);
+                // Show download link
+                document.getElementById('download-link').style.display = 'inline-block';
 
-               
-
-                // Download setup
-                const link = document.getElementById('download-link');
-                link.href = canvas.toDataURL('image/png');
-                link.download = 'mylesky-pasaway-meme.png';
-                link.style.display = 'inline-block';
-
-                // Optional: confetti effect
-                // confetti(); // uncomment if you want to keep it
-            };
+                // Optional fun
+                // confetti(); if you still have it
+            }, { crossOrigin: 'anonymous' });
         }
 
-        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-            if (!text) return;
-            const words = text.split(' ');
-            let line = '';
-            let currentY = y;
-
-            for (let i = 0; i < words.length; i++) {
-                const testLine = line + words[i] + ' ';
-                const metrics = ctx.measureText(testLine);
-                if (metrics.width > maxWidth && i > 0) {
-                    ctx.fillText(line.trim(), x, currentY);
-                    ctx.strokeText(line.trim(), x, currentY);
-                    line = words[i] + ' ';
-                    currentY += lineHeight;
-                } else {
-                    line = testLine;
-                }
-            }
-            // Draw final line
-            ctx.fillText(line.trim(), x, currentY);
-            ctx.strokeText(line.trim(), x, currentY);
+        function downloadMeme() {
+            if (!fabricCanvas) return;
+            const dataURL = fabricCanvas.toDataURL({ format: 'png', multiplier: 2 }); // higher quality
+            const link = document.getElementById('download-link');
+            link.href = dataURL;
+            link.download = 'mylesky-pasaway-meme.png';
+            link.click();
         }
 
         function toggleAudio() {
             const audio = document.getElementById('bgMusic');
-            if (audio.paused) {
-                audio.play().catch(() => console.log("Autoplay requires user interaction"));
-            } else {
-                audio.pause();
-            }
+            if (audio.paused) audio.play().catch(() => console.log("Autoplay blocked"));
+            else audio.pause();
         }
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            initFabric();
+        });
     </script>
 </body>
 </html>
