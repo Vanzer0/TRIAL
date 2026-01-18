@@ -194,7 +194,7 @@
 
     <section id="utility">
         <h2>Unique Utility: Pasaway Prank & Meme Generator <span class="emoji">🤪</span></h2>
-        <p>What makes us stand out? Our built-in AI-like Prank & Meme Generator! Create hilarious pranks or custom memes with randomly generated professional backgrounds that fit your text. It's fun, shareable, and ties into our meme culture – perfect for intriguing friends and attracting new holders. Share your creations on X or Telegram to earn community rewards! <span class="emoji">😂</span></p>
+        <p>What makes us stand out? Our built-in AI-like Prank & Meme Generator! Create hilarious pranks or custom memes using well-known meme templates that fit your text. We auto-select a famous template based on your input for the best match! It's fun, shareable, and ties into our meme culture – perfect for intriguing friends and attracting new holders. Share your creations on X or Telegram to earn community rewards! <span class="emoji">😂</span></p>
         <p class="fun-fact">Pro Tip: Try "pasaway at a party" for epic laughs, or meme-ify your prank!</p>
         
         <!-- Prank Generator -->
@@ -259,118 +259,115 @@
             confetti();
         }
 
-        // Meme Generator Function with Random Professional Background
+        // Well-known meme templates with URLs and keywords for fitting
+        const memeTemplates = [
+            {
+                name: 'Distracted Boyfriend',
+                url: 'https://i.imgflip.com/1ur9b0.jpg',
+                keywords: ['distracted', 'boyfriend', 'girlfriend', 'cheat', 'temptation', 'choice']
+            },
+            {
+                name: 'Success Kid',
+                url: 'https://i.imgflip.com/gk5a.jpg',
+                keywords: ['success', 'win', 'achievement', 'victory', 'happy', 'kid']
+            },
+            {
+                name: 'This Is Fine',
+                url: 'https://i.imgflip.com/grju.jpg',
+                keywords: ['fine', 'chaos', 'disaster', 'ignore', 'denial', 'dog']
+            },
+            {
+                name: 'Expanding Brain',
+                url: 'https://i.imgflip.com/1jwhww.jpg',
+                keywords: ['brain', 'smart', 'idea', 'evolution', 'thinking', 'levels']
+            },
+            {
+                name: 'Drake Hotline Bling',
+                url: 'https://i.imgflip.com/30b1gx.jpg',
+                keywords: ['drake', 'approve', 'disapprove', 'prefer', 'better', 'worse']
+            },
+            {
+                name: 'Change My Mind',
+                url: 'https://i.imgflip.com/24y43o.jpg',
+                keywords: ['change', 'mind', 'opinion', 'debate', 'sign', 'guy']
+            },
+            {
+                name: 'Doge',
+                url: 'https://i.imgflip.com/4t0m5.jpg',
+                keywords: ['doge', 'dog', 'such', 'wow', 'funny', 'shiba']
+            },
+            {
+                name: 'One Does Not Simply',
+                url: 'https://i.imgflip.com/1bij.jpg',
+                keywords: ['simply', 'not', 'boromir', 'lord', 'rings', 'hard']
+            },
+            // Add more as needed; these are public imgflip templates with CORS enabled for canvas
+        ];
+
+        // Meme Generator Function with Fitting Well-Known Template
         function generateMeme() {
             const topText = document.getElementById('top-text').value.toUpperCase();
             const bottomText = document.getElementById('bottom-text').value.toUpperCase();
             const canvas = document.getElementById('meme-canvas');
             const ctx = canvas.getContext('2d');
 
-            // Clear canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Generate random professional background that "fits" the text (based on simple keyword analysis)
+            // Analyze text to find best-fitting template
             const combinedText = (topText + ' ' + bottomText).toLowerCase();
-            let baseColor = '#d9f2ff'; // Default light blue
-            let accentColor = '#ff69b4'; // Default pink
-            let patternType = 'gradient'; // Default
+            let selectedTemplate = memeTemplates[Math.floor(Math.random() * memeTemplates.length)]; // Default random
 
-            // Simple "fit" logic: Change colors/patterns based on keywords for thematic match
-            if (combinedText.includes('work') || combinedText.includes('office')) {
-                baseColor = '#add8e6'; // Professional blue
-                accentColor = '#5c3c2e'; // Brown accents
-                patternType = 'stripes';
-            } else if (combinedText.includes('party') || combinedText.includes('fun') || combinedText.includes('pasaway')) {
-                baseColor = '#ffd700'; // Fun yellow
-                accentColor = '#ff1493'; // Vibrant pink
-                patternType = 'dots';
-            } else if (combinedText.includes('home') || combinedText.includes('family')) {
-                baseColor = '#fffacd'; // Cozy yellow
-                accentColor = '#98fb98'; // Soft green
-                patternType = 'waves';
-            } else {
-                // Random for others
-                const colors = ['#d9f2ff', '#ffe4b5', '#add8e6', '#fffacd', '#98fb98'];
-                baseColor = colors[Math.floor(Math.random() * colors.length)];
-                accentColor = ['#ff69b4', '#ffd700', '#ff1493', '#5c3c2e'][Math.floor(Math.random() * 4)];
-                patternType = ['gradient', 'stripes', 'dots', 'waves'][Math.floor(Math.random() * 4)];
-            }
-
-            // Draw background
-            if (patternType === 'gradient') {
-                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-                gradient.addColorStop(0, baseColor);
-                gradient.addColorStop(1, accentColor);
-                ctx.fillStyle = gradient;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-            } else if (patternType === 'stripes') {
-                ctx.fillStyle = baseColor;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.strokeStyle = accentColor;
-                ctx.lineWidth = 5;
-                for (let i = 0; i < canvas.height; i += 20) {
-                    ctx.beginPath();
-                    ctx.moveTo(0, i);
-                    ctx.lineTo(canvas.width, i);
-                    ctx.stroke();
-                }
-            } else if (patternType === 'dots') {
-                ctx.fillStyle = baseColor;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = accentColor;
-                for (let i = 0; i < 50; i++) {
-                    ctx.beginPath();
-                    ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 10 + 5, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            } else if (patternType === 'waves') {
-                ctx.fillStyle = baseColor;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.strokeStyle = accentColor;
-                ctx.lineWidth = 3;
-                for (let i = 0; i < 5; i++) {
-                    ctx.beginPath();
-                    ctx.moveTo(0, 50 + i * 50 + Math.random() * 20);
-                    for (let j = 0; j < canvas.width; j += 50) {
-                        ctx.quadraticCurveTo(j + 25, 50 + i * 50 + (Math.random() - 0.5) * 40, j + 50, 50 + i * 50 + Math.random() * 20);
-                    }
-                    ctx.stroke();
+            // Fit logic: Match keywords
+            for (const template of memeTemplates) {
+                if (template.keywords.some(keyword => combinedText.includes(keyword))) {
+                    selectedTemplate = template;
+                    break;
                 }
             }
 
-            // Professional text style: Impact font with fallback, better wrapping
-            ctx.font = 'bold 30px Impact, sans-serif';
-            ctx.fillStyle = 'white';
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 4;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'top';
+            // Load the selected well-known meme image
+            const img = new Image();
+            img.crossOrigin = 'anonymous'; // For CORS, assuming imgflip allows
+            img.src = selectedTemplate.url;
 
-            // Wrap and draw top text
-            wrapText(ctx, topText, canvas.width / 2, 20, canvas.width - 40, 35);
+            img.onload = function() {
+                // Adjust canvas to image dimensions for fit
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-            // Bottom text (aligned to bottom)
-            ctx.textBaseline = 'bottom';
-            wrapText(ctx, bottomText, canvas.width / 2, canvas.height - 20, canvas.width - 40, 35);
+                // Professional text style: Impact font with fallback, better wrapping
+                ctx.font = 'bold 40px Impact, sans-serif'; // Larger for visibility
+                ctx.fillStyle = 'white';
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 6; // Thicker stroke for pro look
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'top';
 
-            // Watermark for professionalism
-            ctx.font = 'italic 16px Poppins';
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
-            ctx.lineWidth = 1;
-            ctx.textBaseline = 'bottom';
-            ctx.fillText('#MyleskyPasaway', canvas.width - 60, canvas.height - 10);
-            ctx.strokeText('#MyleskyPasaway', canvas.width - 60, canvas.height - 10);
+                // Wrap and draw top text (adjusted position)
+                wrapText(ctx, topText, canvas.width / 2, 10, canvas.width - 40, 45);
 
-            // Download link
-            const downloadLink = document.getElementById('download-link');
-            downloadLink.href = canvas.toDataURL('image/png');
-            downloadLink.download = 'pasaway-meme.png';
-            downloadLink.style.display = 'block';
-            downloadLink.innerText = 'Download Your Meme! 📥';
+                // Bottom text (aligned to bottom)
+                ctx.textBaseline = 'bottom';
+                wrapText(ctx, bottomText, canvas.width / 2, canvas.height - 10, canvas.width - 40, 45);
 
-            // Confetti for fun
-            confetti();
+                // Watermark for professionalism
+                ctx.font = 'italic 20px Poppins';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.lineWidth = 1;
+                ctx.textBaseline = 'bottom';
+                ctx.fillText('#MyleskyPasaway - ' + selectedTemplate.name, canvas.width / 2, canvas.height - 10);
+                ctx.strokeText('#MyleskyPasaway - ' + selectedTemplate.name, canvas.width / 2, canvas.height - 10);
+
+                // Download link
+                const downloadLink = document.getElementById('download-link');
+                downloadLink.href = canvas.toDataURL('image/png');
+                downloadLink.download = 'pasaway-meme.png';
+                downloadLink.style.display = 'block';
+                downloadLink.innerText = 'Download Your Meme! 📥';
+
+                // Confetti for fun
+                confetti();
+            };
         }
 
         // Helper function for text wrapping (professional handling of long text)
