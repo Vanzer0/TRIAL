@@ -206,46 +206,43 @@
                 canvas.height = img.height;
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                // ────────────────────────────────────────────────
-                //   BIGGER + MORE VISIBLE TEXT SETTINGS
-                // ────────────────────────────────────────────────
-                const fontSize = Math.max(60, Math.floor(canvas.width / 9.5)); // larger than before
+                // Professional meme text styling: white + thick black outline + strong shadow
+                const fontSize = Math.max(60, Math.floor(canvas.width / 8.5)); // large & scalable
                 ctx.font = `bold ${fontSize}px Impact, 'Arial Black', sans-serif`;
-                ctx.fillStyle = 'white';
-                ctx.strokeStyle = 'black';
-                ctx.lineWidth = Math.max(10, fontSize / 7);       // thicker stroke
+                ctx.fillStyle = 'white';           // white text
+                ctx.strokeStyle = 'black';         // black outline
+                ctx.lineWidth = Math.max(10, fontSize / 6.5); // thick stroke for visibility
                 ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle'; // better vertical centering
-                ctx.shadowColor = 'black';
-                ctx.shadowBlur = 14;                               // stronger shadow
-                ctx.shadowOffsetX = 5;
-                ctx.shadowOffsetY = 5;
-
-                // Top text – placed higher to avoid face overlap
-                const topY = fontSize * 1.4;
-                wrapText(ctx, topText, canvas.width / 2, topY, canvas.width * 0.90, fontSize * 1.15);
-
-                // Bottom text – placed lower
-                const bottomY = canvas.height - fontSize * 0.8;
                 ctx.textBaseline = 'middle';
-                wrapText(ctx, bottomText, canvas.width / 2, bottomY, canvas.width * 0.90, fontSize * 1.15);
+                ctx.shadowColor = 'black';
+                ctx.shadowBlur = 12;               // strong blur for extra contrast
+                ctx.shadowOffsetX = 4;
+                ctx.shadowOffsetY = 4;
 
-                // Small watermark
+                // Top text: positioned higher to avoid overlapping faces
+                const topY = fontSize * 1.3;
+                wrapText(ctx, topText, canvas.width / 2, topY, canvas.width * 0.92, fontSize * 1.2);
+
+                // Bottom text: positioned lower
+                const bottomY = canvas.height - fontSize * 0.7;
+                wrapText(ctx, bottomText, canvas.width / 2, bottomY, canvas.width * 0.92, fontSize * 1.2);
+
+                // Subtle watermark
                 ctx.shadowBlur = 0;
                 ctx.shadowOffsetX = 0;
                 ctx.shadowOffsetY = 0;
                 ctx.font = `italic ${Math.floor(fontSize * 0.35)}px Poppins, sans-serif`;
-                ctx.fillStyle = 'rgba(255,255,255,0.8)';
-                ctx.fillText('#MyleskyPasaway', canvas.width / 2, canvas.height - 18);
+                ctx.fillStyle = 'rgba(255,255,255,0.75)';
+                ctx.fillText('#MyleskyPasaway', canvas.width / 2, canvas.height - 20);
 
-                // Enable download
+                // Download setup
                 const link = document.getElementById('download-link');
                 link.href = canvas.toDataURL('image/png');
                 link.download = 'mylesky-pasaway-meme.png';
                 link.style.display = 'inline-block';
 
-                // Optional fun effect
-                confetti();
+                // Optional: confetti effect
+                // confetti(); // uncomment if you want to keep it
             };
         }
 
@@ -267,20 +264,15 @@
                     line = testLine;
                 }
             }
-            // Last line
+            // Draw final line
             ctx.fillText(line.trim(), x, currentY);
             ctx.strokeText(line.trim(), x, currentY);
-        }
-
-        // Simple confetti (you can keep or remove)
-        function confetti() {
-            // your existing confetti code or leave empty
         }
 
         function toggleAudio() {
             const audio = document.getElementById('bgMusic');
             if (audio.paused) {
-                audio.play().catch(e => console.log("Autoplay needs interaction"));
+                audio.play().catch(() => console.log("Autoplay requires user interaction"));
             } else {
                 audio.pause();
             }
