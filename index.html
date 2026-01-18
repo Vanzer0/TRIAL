@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MYLESKY PASAWAY: The mischievous Solana meme coin with a unique Prank Generator utility!">
+    <meta name="description" content="MYLESKY PASAWAY: The mischievous Solana meme coin with a unique Prank & Meme Generator utility!">
     <meta property="og:title" content="MYLESKY PASAWAY - Naughtiest Meme Coin on Solana">
-    <meta property="og:description" content="Join the fun with harmless pranks and community rewards. Pasaway vibes only!">
+    <meta property="og:description" content="Join the fun with harmless pranks, custom memes, and community rewards. Pasaway vibes only!">
     <meta property="og:image" content="https://your-image-url.com/pasaway-logo.png"> <!-- Update with hosted URL if needed -->
     <meta property="og:url" content="https://your-vercel-domain.vercel.app">
     <title>MYLESKY PASAWAY - The Mischievous Meme Coin</title>
@@ -15,7 +15,7 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #d9f2ff; /* Light blue from image background */
+            background: linear-gradient(135deg, #d9f2ff, #ffe4b5); /* Fun gradient for joy */
             color: #5c3c2e; /* Soft brown for text, matching bears */
             margin: 0;
             padding: 0;
@@ -36,13 +36,14 @@
             display: block;
             border-radius: 50%;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            animation: bounceIn 1s ease-in-out infinite alternate; /* Lively bounce */
+            animation: bounceIn 1s ease-in-out infinite alternate, rotate 5s linear infinite; /* Added fun rotate */
         }
         h1 {
             font-size: 2.5em; /* Scaled down base for mobile */
             margin: 10px 0;
             color: #ff69b4; /* Pink accents from phone/cheeks for mischief */
-            animation: fadeInDown 1s ease-in-out, pulse 2s infinite;
+            animation: fadeInDown 1s ease-in-out, rainbowText 3s infinite; /* Color-changing fun */
+            text-shadow: 2px 2px 4px rgba(255,105,180,0.3); /* Playful shadow */
         }
         section {
             padding: 30px 15px; /* Mobile-friendly padding */
@@ -51,6 +52,7 @@
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             background-color: #ffffff; /* White bear-inspired clean sections */
+            position: relative;
         }
         #about {
             background-color: #fffacd; /* Soft yellow for warmth */
@@ -80,15 +82,23 @@
         }
         button:hover {
             background-color: #ff1493;
-            transform: scale(1.1) rotate(2deg); /* Lively hover wiggle */
+            transform: scale(1.1) rotate(5deg); /* More exaggerated wiggle for fun */
             box-shadow: 0 4px 10px rgba(255,105,180,0.5);
         }
-        #result {
+        #result, #meme-result {
             margin-top: 20px;
             font-size: 1.4em; /* Slightly smaller for mobile */
             color: #ff69b4;
             animation: zoomIn 0.5s ease-in-out, shake 0.5s infinite alternate;
             word-wrap: break-word; /* Prevent overflow */
+            padding: 10px;
+            border: 2px dashed #ff69b4;
+            border-radius: 10px;
+        }
+        #meme-canvas {
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            margin-top: 20px;
         }
         footer {
             background-color: #5c3c2e; /* Brown bear for grounded footer */
@@ -98,22 +108,40 @@
             font-size: 0.9em;
             border-top: 5px solid #ff69b4;
         }
-        /* Additional lively animations */
+        /* Fun animations */
         @keyframes bounceIn {
             0% { transform: scale(0.9) translateY(0); }
-            100% { transform: scale(1) translateY(-10px); }
+            100% { transform: scale(1) translateY(-15px); } /* Bigger bounce */
         }
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
         @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-2px) rotate(-2deg); }
-            50% { transform: translateX(2px) rotate(2deg); }
-            75% { transform: translateX(-2px) rotate(-2deg); }
-            100% { transform: translateX(0); }
+            0% { transform: translateX(0) rotate(0); }
+            25% { transform: translateX(-5px) rotate(-5deg); }
+            50% { transform: translateX(5px) rotate(5deg); }
+            75% { transform: translateX(-5px) rotate(-5deg); }
+            100% { transform: translateX(0) rotate(0); }
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes rainbowText {
+            0% { color: #ff69b4; }
+            33% { color: #ffd700; }
+            66% { color: #add8e6; }
+            100% { color: #ff69b4; }
+        }
+        /* Emojis and fun elements */
+        .emoji { font-size: 1.5em; animation: pulse 1s infinite; }
+        .fun-fact {
+            font-style: italic;
+            color: #ff1493;
+            margin: 10px 0;
+            animation: fadeIn 2s ease-in-out;
         }
         /* Professional touches */
         a { color: #ff69b4; text-decoration: none; font-weight: bold; }
@@ -151,56 +179,69 @@
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="MYLESKY PASAWAY Brand Image - Cute Bears in Bed" class="logo">
+        <img src="logo.png" alt="MYLESKY PASAWAY" class="logo">
         <h1>MYLESKY PASAWAY</h1>
-        <p class="animate__animated animate__fadeIn">The Naughtiest Meme Coin on Solana – Where Mischief Meets Crypto!</p>
+        <p class="animate__animated animate__fadeIn">The Naughtiest Meme Coin on Solana – Where Mischief Meets Crypto! <span class="emoji">🎉🐻</span></p>
     </header>
 
     <section id="about">
-        <h2>About MYLESKY PASAWAY</h2>
-        <p>"Pasaway" means mischievous in Filipino – and that's exactly what this coin is all about! Inspired by fun, chaos, and community-driven pranks, MYLESKY PASAWAY is a Solana-based meme coin designed for those who love a bit of harmless trouble. With low fees, fast transactions, and a vibrant community, we're here to shake up the crypto world.</p>
+        <h2>About MYLESKY PASAWAY <span class="emoji">😜</span></h2>
+        <p>"Pasaway" means mischievous in Filipino – and that's exactly what this coin is all about! Inspired by fun, chaos, and community-driven pranks, MYLESKY PASAWAY is a Solana-based meme coin designed for those who love a bit of harmless trouble. With low fees, fast transactions, and a vibrant community, we're here to shake up the crypto world. <span class="emoji">🚀</span></p>
+        <p class="fun-fact">Fun Fact: Did you know pasaway bears love scrolling memes at midnight? Just like us! 🐼📱</p>
         <p>Tokenomics: 1B total supply, 50% liquidity locked, 20% for marketing, 30% community airdrops. No rugs – fully transparent!</p>
     </section>
 
     <section id="utility">
-        <h2>Unique Utility: The Pasaway Prank Generator</h2>
-        <p>What makes us stand out? Our built-in AI-like Prank Generator! Enter your mood or a scenario, and get a custom, hilarious (and harmless) prank idea. It's fun, shareable, and ties into our meme culture – perfect for intriguing friends and attracting new holders. Share your pranks on X or Telegram to earn community rewards!</p>
+        <h2>Unique Utility: Pasaway Prank & Meme Generator <span class="emoji">🤪</span></h2>
+        <p>What makes us stand out? Our built-in AI-like Prank & Meme Generator! Create hilarious pranks or custom memes using our cute bear template. It's fun, shareable, and ties into our meme culture – perfect for intriguing friends and attracting new holders. Share your creations on X or Telegram to earn community rewards! <span class="emoji">😂</span></p>
+        <p class="fun-fact">Pro Tip: Try "pasaway at a party" for epic laughs, or meme-ify your prank!</p>
+        
+        <!-- Prank Generator -->
+        <h3>Generate a Prank <span class="emoji">🎭</span></h3>
         <input type="text" id="scenario" placeholder="Enter a scenario (e.g., 'bored at work')">
-        <button onclick="generatePrank()">Generate Prank!</button>
+        <button onclick="generatePrank()">Generate Prank! 🎈</button>
         <div id="result"></div>
+        
+        <!-- Meme Generator -->
+        <h3>Generate a Meme <span class="emoji">🖼️</span></h3>
+        <input type="text" id="top-text" placeholder="Top Text (e.g., 'When you're pasaway')">
+        <input type="text" id="bottom-text" placeholder="Bottom Text (e.g., 'But still cute')">
+        <button onclick="generateMeme()">Generate Meme! 🌟</button>
+        <canvas id="meme-canvas" width="400" height="400"></canvas>
+        <div id="meme-result"><a id="download-link" style="display:none;">Download Your Meme! 📥</a></div>
     </section>
 
     <section id="buy">
-        <h2>How to Buy</h2>
-        <p>1. Get a Solana wallet like Phantom.</p>
-        <p>2. Buy SOL on an exchange and transfer to your wallet.</p>
-        <p>3. Swap for MYLESKY PASAWAY on Raydium or Jupiter DEX using our contract address: [Insert CA here].</p>
-        <p>Join our community: TG: TBA | X: TBA</p>
+        <h2>How to Buy <span class="emoji">💰</span></h2>
+        <p>1. Get a Solana wallet like Phantom. <span class="emoji">👻</span></p>
+        <p>2. Buy SOL on an exchange and transfer to your wallet. <span class="emoji">🔄</span></p>
+        <p>3. Swap for MYLESKY PASAWAY on Raydium or Jupiter DEX using our contract address: [Insert CA here]. <span class="emoji">🌌</span></p>
+        <p>Join our community: TG: TBA | X: TBA <span class="emoji">📣</span></p>
     </section>
 
     <footer>
-        <p>&copy; 2026 MYLESKY PASAWAY. All rights reserved. Not financial advice – DYOR!</p>
+        <p>&copy; 2026 MYLESKY PASAWAY. All rights reserved. Not financial advice – DYOR! <span class="emoji">🕵️‍♂️</span></p>
     </footer>
 
     <script>
         const pranks = [
-            "Hide your boss's coffee mug in the fridge and blame the office ghost!",
-            "Switch everyone's keyboard shortcuts and watch the chaos unfold.",
-            "Send anonymous funny memes to your friends pretending to be a secret admirer.",
-            "Put googly eyes on all the office supplies for instant smiles.",
-            "Create a fake 'Out of Order' sign for the elevator and take the stairs.",
-            "Whisper random facts to strangers in public – bonus if they're about cats.",
-            "Replace family photos with celebrity lookalikes and act normal.",
-            "Start a dance-off in a boring meeting via Zoom filters.",
-            "Hide notes with puns in random places around the house.",
-            "Convince your friends that today is 'Opposite Day' and respond accordingly."
+            "Hide your boss's coffee mug in the fridge and blame the office ghost! 👻",
+            "Switch everyone's keyboard shortcuts and watch the chaos unfold. ⌨️😂",
+            "Send anonymous funny memes to your friends pretending to be a secret admirer. ❤️📱",
+            "Put googly eyes on all the office supplies for instant smiles. 👀😄",
+            "Create a fake 'Out of Order' sign for the elevator and take the stairs. 🛗🏃",
+            "Whisper random facts to strangers in public – bonus if they're about cats. 🐱🤫",
+            "Replace family photos with celebrity lookalikes and act normal. 📸😎",
+            "Start a dance-off in a boring meeting via Zoom filters. 💃🕺",
+            "Hide notes with puns in random places around the house. 📝🏠",
+            "Convince your friends that today is 'Opposite Day' and respond accordingly. 🔄🤯"
         ];
 
         function generatePrank() {
             const scenario = document.getElementById('scenario').value.trim();
             let prankIndex = Math.floor(Math.random() * pranks.length);
             
-            // Enhanced "AI-like" customization
+            // Enhanced "AI-like" customization with fun
             if (scenario.toLowerCase().includes('work') || scenario.toLowerCase().includes('office')) {
                 prankIndex = 0;
             } else if (scenario.toLowerCase().includes('friends') || scenario.toLowerCase().includes('party')) {
@@ -210,8 +251,96 @@
             }
             
             const result = document.getElementById('result');
-            result.innerHTML = `Your Pasaway Prank: ${pranks[prankIndex]}<br><small>Share this on socials with #MyleskyPasaway for a chance to win tokens!</small>`;
+            result.innerHTML = `Your Pasaway Prank: ${pranks[prankIndex]}<br><small>Share this on socials with #MyleskyPasaway for a chance to win tokens! 🎁</small>`;
             result.classList.add('animate__animated', 'animate__zoomIn');
+            
+            // Add confetti for extra fun (simple JS confetti)
+            confetti();
+        }
+
+        // Meme Generator Function
+        function generateMeme() {
+            const topText = document.getElementById('top-text').value.toUpperCase();
+            const bottomText = document.getElementById('bottom-text').value.toUpperCase();
+            const canvas = document.getElementById('meme-canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            img.src = 'logo.png'; // Using your brand image as the meme template (upload as logo.png)
+
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                // Meme text style
+                ctx.font = 'bold 24px Impact';
+                ctx.fillStyle = 'white';
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 2;
+                ctx.textAlign = 'center';
+
+                // Top text
+                ctx.fillText(topText, canvas.width / 2, 40);
+                ctx.strokeText(topText, canvas.width / 2, 40);
+
+                // Bottom text
+                ctx.fillText(bottomText, canvas.width / 2, canvas.height - 20);
+                ctx.strokeText(bottomText, canvas.width / 2, canvas.height - 20);
+
+                // Download link
+                const downloadLink = document.getElementById('download-link');
+                downloadLink.href = canvas.toDataURL('image/png');
+                downloadLink.download = 'pasaway-meme.png';
+                downloadLink.style.display = 'block';
+                downloadLink.innerText = 'Download Your Meme! 📥';
+
+                // Confetti for fun
+                confetti();
+            };
+        }
+
+        // Simple confetti function for joy
+        function confetti() {
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '1000';
+            document.body.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height / 2,
+                    size: Math.random() * 5 + 5,
+                    color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                    speedX: Math.random() * 3 - 1.5,
+                    speedY: Math.random() * 3 + 1
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    if (p.y > canvas.height) p.y = 0;
+                });
+                requestAnimationFrame(draw);
+            }
+            draw();
+
+            setTimeout(() => document.body.removeChild(canvas), 3000); // Remove after 3s
         }
     </script>
 </body>
