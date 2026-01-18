@@ -14,51 +14,161 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
     <style>
-        body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #d9f2ff, #ffe4b5); color: #5c3c2e; margin: 0; padding: 0; text-align: center; overflow-x: hidden; font-size: 16px; }
-        header { background-color: #ffd700; color: #5c3c2e; padding: 30px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .logo { max-width: 220px; margin: 10px auto; display: block; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.2); animation: bounceIn 1.5s ease-in-out infinite alternate; }
-        h1 { font-size: clamp(2em, 6vw, 2.8em); margin: 10px 0; color: #ff69b4; animation: fadeInDown 1s ease-in-out, rainbowText 4s infinite; }
-        section { padding: 25px 15px; max-width: 900px; margin: 15px auto; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); background-color: #ffffff; }
-        button { background-color: #ff69b4; color: white; border: none; padding: 14px 28px; font-size: 1.1em; cursor: pointer; margin: 15px 0; border-radius: 10px; transition: all 0.3s; box-shadow: 0 3px 6px rgba(255,105,180,0.4); width: 100%; max-width: 320px; }
-        button:hover { background-color: #ff1493; transform: scale(1.08) rotate(3deg); }
-        #meme-canvas { max-width: 100%; height: auto; border: 3px solid #ff69b4; border-radius: 12px; margin: 20px auto; display: block; box-shadow: 0 5px 12px rgba(0,0,0,0.2); touch-action: none; }
-        .form-group { margin: 18px 0; }
-        input, select { padding: 12px; width: 100%; max-width: 500px; border: 2px solid #ff69b4; border-radius: 10px; font-size: 1em; box-sizing: border-box; }
-        .color-picker { width: 60px; height: 40px; padding: 0; border: none; cursor: pointer; vertical-align: middle; }
-        audio { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 380px; opacity: 0.85; border-radius: 12px; box-shadow: 0 3px 8px rgba(0,0,0,0.2); z-index: 10; }
-        @media (max-width: 768px) { section { padding: 20px 12px; margin: 10px; } .logo { max-width: 180px; } h1 { font-size: 2.2em; } }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #d9f2ff, #ffe4b5);
+            color: #5c3c2e;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            overflow-x: hidden;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #ffd700;
+            color: #5c3c2e;
+            padding: 40px 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .logo {
+            max-width: 200px;
+            margin: 0 auto 20px;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: bounceIn 1.5s ease-in-out infinite alternate;
+        }
+        h1 {
+            font-size: clamp(2em, 8vw, 3em);
+            margin: 0 0 10px;
+            color: #ff69b4;
+            animation: fadeInDown 1s ease-in-out, rainbowText 4s infinite;
+        }
+        section {
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background-color: #ffffff;
+        }
+        button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 10px 5px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(255,105,180,0.4);
+            min-width: 160px;
+        }
+        button:hover {
+            background-color: #ff1493;
+            transform: scale(1.05);
+        }
+        #meme-canvas {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            touch-action: none;
+        }
+        .form-group {
+            margin: 20px 0;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #5c3c2e;
+        }
+        input, select {
+            padding: 10px;
+            width: 100%;
+            border: 2px solid #ff69b4;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+            background-color: #fff;
+        }
+        .color-picker {
+            width: 50px;
+            height: 35px;
+            padding: 0;
+            border: none;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+        .audio-controls {
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        audio {
+            width: 90%;
+            max-width: 420px;
+            margin: 10px auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        footer {
+            background-color: #5c3c2e;
+            color: #ffd700;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9em;
+            border-top: 4px solid #ff69b4;
+        }
+        @media (max-width: 768px) {
+            body { font-size: 14px; }
+            header { padding: 30px 15px; }
+            .logo { max-width: 160px; }
+            h1 { font-size: 2.2em; }
+            section { padding: 20px 15px; margin: 15px; }
+            button { padding: 10px 20px; font-size: 0.95em; min-width: 100%; margin: 10px 0; }
+            .form-group { margin: 15px 0; }
+            #meme-canvas { max-height: 400px; }
+        }
         @keyframes bounceIn { 0% { transform: scale(0.95) translateY(0); } 100% { transform: scale(1.05) translateY(-12px); } }
         @keyframes rainbowText { 0%,100% { color: #ff69b4; } 33% { color: #ffd700; } 66% { color: #add8e6; } }
     </style>
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="MYLESKY PASAWAY" class="logo">
+        <img src="logo.png" alt="MYLESKY PASAWAY Logo" class="logo">
         <h1>MYLESKY PASAWAY</h1>
         <p>The Naughtiest Meme Coin on Solana – Pasaway Vibes Only! 🐻🎉</p>
     </header>
 
+    <!-- About & Buy sections (shortened for example) -->
+    <section id="about">
+        <h2>About MYLESKY PASAWAY</h2>
+        <p>Fun, mischievous Solana meme coin with custom meme generator utility.</p>
+    </section>
+
     <section id="utility">
-        <h2>Pasaway Meme Generator 🤪😂</h2>
-        <p>Choose font & color → Generate → Drag text anywhere!</p>
+        <h2>Pasaway Meme Generator</h2>
+        <p>Customize, drag text, and share your creations!</p>
+
+        <!-- Form fields remain the same -->
 
         <div class="form-group">
             <label for="template-select">Choose Template:</label>
             <select id="template-select">
+                <!-- your options here -->
                 <option value="0">Distracted Boyfriend</option>
-                <option value="1">Success Kid</option>
-                <option value="2">This Is Fine</option>
-                <option value="3">Expanding Brain</option>
-                <option value="4">Drake Hotline Bling</option>
-                <option value="5">Change My Mind</option>
-                <option value="6">Doge</option>
-                <option value="7">One Does Not Simply</option>
-                <option value="8">Grumpy Cat</option>
-                <option value="10">Mocking SpongeBob</option>
-                <option value="11">Woman Yelling at Cat</option>
-                <option value="12">Surprised Pikachu</option>
-                <option value="14">Two Buttons</option>
-                <option value="15">Batman Slapping Robin</option>
+                <!-- ... rest of options ... -->
             </select>
         </div>
 
@@ -73,154 +183,69 @@
         </div>
 
         <div class="form-group">
-            <label>Text Options (applies to both):</label><br>
-            <label for="font-select">Font: </label>
+            <label>Text Options:</label><br>
+            <label for="font-select">Font:</label>
             <select id="font-select">
-                <option value="Impact">Impact (Classic Meme)</option>
-                <option value="Arial Black">Arial Black</option>
-                <option value="Helvetica">Helvetica</option>
-                <option value="Comic Sans MS">Comic Sans MS</option>
-                <option value="Verdana">Verdana</option>
-                <option value="Anton">Anton (Bold Modern)</option>
-                <option value="Oswald">Oswald</option>
+                <option value="Impact">Impact (Classic)</option>
+                <!-- ... other fonts ... -->
             </select>
             <br><br>
-            <label for="text-color">Color: </label>
+            <label for="text-color">Color:</label>
             <input type="color" id="text-color" value="#ffffff" class="color-picker">
         </div>
 
-        <button onclick="generateMeme()">Generate & Customize! 🌟</button>
+        <button onclick="generateMeme()">Generate Meme! 🌟</button>
 
-        <canvas id="meme-canvas"></canvas>
-
-        <div style="margin-top:15px;">
-            <a id="download-link" style="display:none; font-size:1.3em; color:#ff69b4; text-decoration:none;" onclick="downloadMeme()">Download Meme 📥</a>
-        </div>
+        <canvas id="meme-canvas" width="600" height="600"></canvas>
 
         <div style="margin: 20px 0;">
-            <button onclick="toggleAudio()">Play / Pause Music 🎵</button>
+            <a id="download-link" style="display:none; font-size:1.1em; color:#ff69b4; text-decoration:none;" onclick="downloadMeme()">Download Meme 📥</a>
+        </div>
+
+        <!-- Audio controls -->
+        <div class="audio-controls">
+            <p>Cute Pasaway Music 🎶</p>
+            <button id="musicToggle" onclick="toggleMusic()">Play Music ▶️</button>
+            <audio id="bgMusic" loop autoplay muted>
+                <source src="https://cdn.pixabay.com/audio/2024/09/20/audio_0f9d8c7b6f.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
         </div>
     </section>
 
-    <audio id="bgMusic" loop>
-        <source src="https://cdn.pixabay.com/audio/2023/08/07/audio_6d4e8d3d9d.mp3" type="audio/mpeg">
-    </audio>
+    <footer>
+        <p>© 2026 MYLESKY PASAWAY • DYOR • Not financial advice</p>
+    </footer>
 
     <script>
-        const memeTemplates = [
-            {name: 'Distracted Boyfriend', url: 'https://i.imgflip.com/1ur9b0.jpg'},
-            {name: 'Success Kid', url: 'https://i.imgflip.com/gk5a.jpg'},
-            {name: 'This Is Fine', url: 'https://i.imgflip.com/grju.jpg'},
-            {name: 'Expanding Brain', url: 'https://i.imgflip.com/1jwhww.jpg'},
-            {name: 'Drake Hotline Bling', url: 'https://i.imgflip.com/30b1gx.jpg'},
-            {name: 'Change My Mind', url: 'https://i.imgflip.com/24y43o.jpg'},
-            {name: 'Doge', url: 'https://i.imgflip.com/4t0m5.jpg'},
-            {name: 'One Does Not Simply', url: 'https://i.imgflip.com/1bij.jpg'},
-            {name: 'Grumpy Cat', url: 'https://i.imgflip.com/8p0a.jpg'},
-            {name: 'Mocking SpongeBob', url: 'https://i.imgflip.com/1otk96.jpg'},
-            {name: 'Woman Yelling at Cat', url: 'https://i.imgflip.com/3nw4y7.jpg'},
-            {name: 'Surprised Pikachu', url: 'https://i.imgflip.com/2kbn1e.jpg'},
-            {name: 'Two Buttons', url: 'https://i.imgflip.com/1g8my4.jpg'},
-            {name: 'Batman Slapping Robin', url: 'https://i.imgflip.com/9ehk.jpg'}
-        ];
+        // Your existing Fabric.js + meme generator code here
+        // ... (keep generateMeme, downloadMeme, initFabric, etc.)
 
-        let fabricCanvas = null;
-
-        function initFabric() {
-            const canvasEl = document.getElementById('meme-canvas');
-            fabricCanvas = new fabric.Canvas('meme-canvas', {
-                width: 600,
-                height: 600,
-                backgroundColor: '#fff',
-                selection: false
-            });
-        }
-
-        function generateMeme() {
-            if (!fabricCanvas) initFabric();
-
-            const topTextVal = document.getElementById('top-text').value.trim().toUpperCase();
-            const bottomTextVal = document.getElementById('bottom-text').value.trim().toUpperCase();
-            const idx = parseInt(document.getElementById('template-select').value);
-            const selectedFont = document.getElementById('font-select').value;
-            const textColor = document.getElementById('text-color').value;
-
-            const template = memeTemplates[idx];
-
-            fabric.Image.fromURL(template.url, (img) => {
-                const scale = Math.min(
-                    fabricCanvas.getWidth() * 0.9 / img.width,
-                    fabricCanvas.getHeight() * 0.9 / img.height
-                );
-                img.scaleToWidth(img.width * scale);
-                img.scaleToHeight(img.height * scale);
-                img.set({
-                    left: (fabricCanvas.getWidth() - img.getScaledWidth()) / 2,
-                    top: (fabricCanvas.getHeight() - img.getScaledHeight()) / 2,
-                    selectable: false,
-                    evented: false
-                });
-                fabricCanvas.clear();
-                fabricCanvas.add(img);
-                fabricCanvas.sendToBack(img);
-
-                const commonTextProps = {
-                    width: fabricCanvas.getWidth() * 0.88,
-                    fontSize: Math.max(40, fabricCanvas.getWidth() / 11),
-                    fontFamily: selectedFont,
-                    fill: textColor,
-                    stroke: '#000000',
-                    strokeWidth: 5,
-                    textAlign: 'center',
-                    splitByGrapheme: true,
-                    shadow: new fabric.Shadow({ color: '#000000', blur: 8, offsetX: 4, offsetY: 4 }),
-                    originX: 'center',
-                    editable: true,
-                    cornerColor: '#ff69b4',
-                    cornerSize: 12
-                };
-
-                if (topTextVal) {
-                    const topTxt = new fabric.Textbox(topTextVal, {
-                        ...commonTextProps,
-                        left: fabricCanvas.getWidth() / 2,
-                        top: 60
-                    });
-                    fabricCanvas.add(topTxt);
-                    topTxt.setCoords();
-                }
-
-                if (bottomTextVal) {
-                    const bottomTxt = new fabric.Textbox(bottomTextVal, {
-                        ...commonTextProps,
-                        left: fabricCanvas.getWidth() / 2,
-                        top: fabricCanvas.getHeight() - 140
-                    });
-                    fabricCanvas.add(bottomTxt);
-                    bottomTxt.setCoords();
-                }
-
-                fabricCanvas.requestRenderAll();
-                document.getElementById('download-link').style.display = 'inline-block';
-            }, { crossOrigin: 'anonymous' });
-        }
-
-        function downloadMeme() {
-            if (!fabricCanvas) return;
-            const dataURL = fabricCanvas.toDataURL({ format: 'png', multiplier: 2 });
-            const link = document.getElementById('download-link');
-            link.href = dataURL;
-            link.download = 'mylesky-pasaway-meme.png';
-            link.click();
-        }
-
-        function toggleAudio() {
+        function toggleMusic() {
             const audio = document.getElementById('bgMusic');
-            if (audio.paused) audio.play().catch(() => console.log("Autoplay blocked"));
-            else audio.pause();
+            const btn = document.getElementById('musicToggle');
+
+            if (audio.paused || audio.ended) {
+                audio.muted = false;           // unmute when user clicks
+                audio.play().then(() => {
+                    btn.textContent = 'Pause Music ⏸️';
+                }).catch(err => {
+                    console.log("Autoplay still blocked:", err);
+                    btn.textContent = 'Play Music ▶️';
+                });
+            } else {
+                audio.pause();
+                btn.textContent = 'Play Music ▶️';
+            }
         }
 
-        window.addEventListener('load', initFabric);
+        // Try gentle autoplay on load (muted)
+        window.addEventListener('load', () => {
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(() => {
+                // Most likely blocked - user will click the button
+            });
+        });
     </script>
 </body>
 </html>
