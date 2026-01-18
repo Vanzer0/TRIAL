@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MYLESKY PASAWAY • Meme Generator</title>
-  <meta name="description" content="Create custom memes — multiple text layers, change font & color freely" />
+  <meta name="description" content="Create custom pasaway memes — multiple text layers, change font & color freely" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Anton&family=Oswald:wght@500;700&family=Comic+Neue:wght@700&family=Roboto:wght@700&family=Montserrat:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -103,6 +103,10 @@
       border-radius: 12px;
       padding: 12px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      min-height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     #meme-canvas {
@@ -137,6 +141,11 @@
     button:hover {
       background: var(--primary-dark);
       transform: translateY(-1px);
+    }
+
+    .placeholder-text {
+      color: #aaa;
+      font-style: italic;
     }
 
     @media (max-width: 480px) {
@@ -222,11 +231,12 @@
     <button onclick="loadTemplate()">Load / Change Template</button>
     <button onclick="addText()">+ Add Text Layer</button>
     <button onclick="applyStyleToAll()">Apply Font & Color to All Text</button>
-    <button onclick="downloadMeme()">Download</button>
+    <button onclick="downloadMeme()">Download Meme</button>
   </div>
 
   <div class="canvas-wrapper">
     <canvas id="meme-canvas"></canvas>
+    <div class="placeholder-text" id="placeholder">Select a template and click "Load / Change Template" to begin</div>
   </div>
 
 </div>
@@ -239,36 +249,35 @@
 
 <script>
 // ────────────────────────────────────────────────
-// MEME TEMPLATES
+// MEME TEMPLATES – real Imgflip URLs
 // ────────────────────────────────────────────────
 const templates = [
-  "https://i.imgflip.com/1ur9b0.jpg",   // 0
-  "https://i.imgflip.com/30b1gx.jpg",   // 1
-  "https://i.imgflip.com/gk5a.jpg",     // 2
-  "https://i.imgflip.com/grju.jpg",     // 3
-  "https://i.imgflip.com/1jwhww.jpg",   // 4
-  "https://i.imgflip.com/24y43o.jpg",   // 5
-  "https://i.imgflip.com/4t0m5.jpg",    // 6
-  "https://i.imgflip.com/1bij.jpg",     // 7
-  "https://i.imgflip.com/8p0a.jpg",     // 8
-  "https://i.imgflip.com/1otk96.jpg",   // 9
-  "https://i.imgflip.com/3nw4y7.jpg",   // 10
-  "https://i.imgflip.com/2kbn1e.jpg",   // 11
-  "https://i.imgflip.com/1g8my4.jpg",   // 12
-  "https://i.imgflip.com/9ehk.jpg",     // 13
-  "https://i.imgflip.com/1e7ygt.jpg",   // 14
-  "https://i.imgflip.com/1x9y1.jpg",    // 15
-  "https://i.imgflip.com/1yxv1.jpg",    // 16
-  "https://i.imgflip.com/1h7in.jpg",    // 17
-  "https://i.imgflip.com/19k6q.jpg",    // 18
-  "https://i.imgflip.com/43aew.jpg",    // 19
-  "https://i.imgflip.com/54hjww.jpg",   // 20
-  "https://i.imgflip.com/1xyk3.jpg",    // 21
-  "https://i.imgflip.com/1yxv1.jpg",    // 22
-  "https://i.imgflip.com/1yxv1.jpg",    // 23
-  "https://i.imgflip.com/1yxv1.jpg",    // 24
-  "https://i.imgflip.com/1yxv1.jpg",    // 25
-  "https://i.imgflip.com/1yxv1.jpg"     // 26
+  "https://i.imgflip.com/1ur9b0.jpg",   // 0  Distracted Boyfriend
+  "https://i.imgflip.com/30b1gx.jpg",   // 1  Drake Hotline Bling
+  "https://i.imgflip.com/gk5a.jpg",     // 2  Success Kid
+  "https://i.imgflip.com/grju.jpg",     // 3  This Is Fine
+  "https://i.imgflip.com/1jwhww.jpg",   // 4  Expanding Brain
+  "https://i.imgflip.com/24y43o.jpg",   // 5  Change My Mind
+  "https://i.imgflip.com/4t0m5.jpg",    // 6  Doge
+  "https://i.imgflip.com/1bij.jpg",     // 7  One Does Not Simply
+  "https://i.imgflip.com/8p0a.jpg",     // 8  Grumpy Cat
+  "https://i.imgflip.com/1otk96.jpg",   // 9  Mocking SpongeBob
+  "https://i.imgflip.com/3nw4y7.jpg",   // 10 Woman Yelling at Cat
+  "https://i.imgflip.com/2kbn1e.jpg",   // 11 Surprised Pikachu
+  "https://i.imgflip.com/1g8my4.jpg",   // 12 Two Buttons
+  "https://i.imgflip.com/9ehk.jpg",     // 13 Batman Slapping Robin
+  "https://i.imgflip.com/1e7ygt.jpg",   // 14 Evil Kermit
+  "https://i.imgflip.com/1x9y1.jpg",    // 15 Squidward Looking Out Window
+  "https://i.imgflip.com/1yxv1.jpg",    // 16 Confused Nick Young
+  "https://i.imgflip.com/1h7in.jpg",    // 17 Roll Safe
+  "https://i.imgflip.com/19k6q.jpg",    // 18 American Chopper Argument
+  "https://i.imgflip.com/43aew.jpg",    // 19 Buff Doge vs Cheems
+  "https://i.imgflip.com/54hjww.jpg",   // 20 Trade Offer
+  "https://i.imgflip.com/1xyk3.jpg",    // 21 Galaxy Brain
+  "https://i.imgflip.com/1yxv1.jpg",    // 22 Stonks
+  "https://i.imgflip.com/1yxv1.jpg",    // 23 Crying Jordan (placeholder - replace if needed)
+  "https://i.imgflip.com/1yxv1.jpg",    // 24 Sad Affleck (placeholder)
+  "https://i.imgflip.com/1yxv1.jpg"     // 25 Epic Handshake (placeholder)
 ];
 
 let canvas = null;
@@ -277,21 +286,23 @@ function initCanvas() {
   const w = Math.min(window.innerWidth - 48, 700);
   canvas = new fabric.Canvas('meme-canvas', {
     width: w,
-    height: w,
+    height: w * 0.9,
     backgroundColor: '#ffffff',
     selection: false
   });
 
   window.addEventListener('resize', () => {
     const nw = Math.min(window.innerWidth - 48, 700);
-    canvas.setDimensions({ width: nw, height: nw });
+    canvas.setDimensions({ width: nw, height: nw * 0.9 });
   });
 }
 
 function loadTemplate() {
   if (!canvas) initCanvas();
 
-  const idx = document.getElementById('template-select').selectedIndex;
+  document.getElementById('placeholder').style.display = 'none';
+
+  const idx = parseInt(document.getElementById('template-select').value);
   const url = templates[idx];
 
   fabric.Image.fromURL(url, img => {
@@ -317,7 +328,7 @@ function loadTemplate() {
 
 function addText() {
   if (!canvas) {
-    alert("Load a template first");
+    alert("Please load a template first");
     return;
   }
 
@@ -368,12 +379,12 @@ function downloadMeme() {
   if (!canvas) return;
 
   const link = document.createElement('a');
-  link.download = 'pasaway-meme.png';
+  link.download = 'mylesky-pasaway-meme.png';
   link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
   link.click();
 }
 
-// Init
+// Initialize canvas on page load
 window.addEventListener('load', initCanvas);
 </script>
 </body>
